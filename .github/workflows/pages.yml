@@ -29,7 +29,7 @@ jobs:
         env:
           DOCS_URL: ${{ vars.DOCS_URL || format('https://{0}.github.io', github.repository_owner) }}
           DOCS_BASE_URL: ${{ vars.DOCS_BASE_URL || format('/{0}/', github.event.repository.name) }}
-      - uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa
+      - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9
         with:
           path: build
   deploy:
