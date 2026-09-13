@@ -9,7 +9,15 @@ description: 从配置 Agent 私有云网络开始，系统学习通信模式、
 
 Nexus Agent Router 把 OpenWrt 变成 Agent 私有云的网络节点：Agent 发布带租约的能力，调用方按能力发现并访问，Router 负责身份、信任、策略、选路和转发。这套文档既可按任务查阅，也可像教材一样从原理学到实验。
 
+
+:::note 文档版本策略
+所有版本入口同步展示最新文档。菜单中的版本号用于保留访问路径，不代表所述功能一定适用于该旧版软件；使用前请核对页面注明的软件版本与前提。
+:::
+
+
 ## 配置 Agent 私有云网络
+
+电脑体验入口见[完整 OpenWrt 虚拟机](getting-started/desktop-vm.md)。使用前需准备包含匹配 VHDX 的体验包；只有源码时请先完成镜像制作。真实路由器使用设备安装路径。
 
 1. [选择部署路径](getting-started/choose-path.md)，再[创建信任域和第一个节点](getting-started/quick-setup.md)。
 2. 用[通信模式选择器](communication/model.md)决定地址、路径和发现机制。
@@ -41,3 +49,5 @@ Nexus Agent Router 把 OpenWrt 变成 Agent 私有云的网络节点：Agent 发
 - 状态异常：从[诊断中心](troubleshooting/diagnostics.md)开始。
 
 当前 OpenWrt 软件包主版本为 **3.1**，具体组件版本见[软件包参考](reference/packages.md)。
+
+当前 LuCI 默认首页为 **状态 → Agent Routing → User mode**；详细设置位于 Developer mode。Cloud 社区版也可提供 Relay，接入步骤见[Cloud Relay](guides/cloud-relay.md)。

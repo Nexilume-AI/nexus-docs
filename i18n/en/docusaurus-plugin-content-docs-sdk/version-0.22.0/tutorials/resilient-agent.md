@@ -9,7 +9,7 @@ Build a `demo.course` Agent with synchronous and SSE handlers, automatic registr
 
 ## What you need
 
-- Python 3.9+ with `nexus-agent-sdk` installed.
+- Python 3.9+ with `nexus-openwrt-agent-sdk` installed.
 - Completed Router [Quick Setup](/openwrt/getting-started/quick-setup).
 - An access JWT with registration and invoke permissions. A one-time transaction token cannot resume.
 

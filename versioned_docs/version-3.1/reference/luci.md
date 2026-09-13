@@ -9,6 +9,8 @@ title: LuCI 页面参考（快速索引）
 
 | 页面 | 用途 |
 | --- | --- |
+| User mode | Cloud、Router network、Agent services 开关及状态 |
+| Nexus Cloud（Developer mode） | 配对、证书及 Cloud Direct/Relay 模式 |
 | Overview | 服务、Peer、路由、Relay 与公网 IPv6 总览 |
 | Quick Setup | 首次可用配置 |
 | Router Roles | 选择 Node、Relay 和 Directory 角色 |

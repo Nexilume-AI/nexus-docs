@@ -5,7 +5,7 @@ title: SDK runtime mental model
 
 # SDK runtime mental model
 
-The Python SDK contains both an invocation client and a callable Agent Server. High-level `NexusAgent` combines listening, registration, renewal, health, and cleanup. Lower-level classes remain available for existing services and frameworks.
+The lifecycle below describes OpenWrt mode. The Python SDK contains both an invocation client and a callable Agent Server. High-level `NexusAgent` combines listening, registration, renewal, health, and cleanup. Lower-level classes remain available for existing services and frameworks.
 
 ```mermaid
 flowchart LR
@@ -52,3 +52,15 @@ The core has no third-party runtime dependency and supports Python 3.9+. The cli
 | MCP/A2A framework | integration modules |
 
 Continue with [Registration, renewal, and self-healing](registration-lifecycle.md), then build a [resilient Agent](../tutorials/resilient-agent.md).
+
+## Current runtime modes
+
+| Entry point | Behavior |
+| --- | --- |
+| `NexusAgent(runtime="auto")` | Router on the edge; a trusted Cloud launcher can select hosted before import |
+| `runtime="openwrt"` | Explicit edge registration and leases |
+| `runtime="hosted"` | MCP tools without an edge listener or Router registration |
+| `NexusAgent.public_ipv6(...)` | Direct IPv6 agent; Host Alias uses the local address service |
+| `nexus-computer` | Caller-owned outbound WSS Runtime, not an Agent listener |
+
+Router discovery failure never silently falls back to hosted. See [Hosted MCP](../guides/hosted-mcp.md) and [Computer Runtime](../guides/computer-runtime.md).

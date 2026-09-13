@@ -6,7 +6,7 @@ description: 只使用 Python SDK，为两个 Agent 分配不同 IPv6 地址并�
 
 # 两个 IPv6 Agent 互相调用
 
-本教程只使用 `nexus-agent-sdk`：在同一台主机上创建 Agent A 和 Agent B，为它们各租用一个全球 IPv6 `/128`，让 A 按 B 的 IPv6 地址调用 B，再让 B 按 A 的地址调用 A。调用路径中没有 OpenWrt、Router 注册、Directory、AFIB 或 Relay。
+本教程只使用 `nexus-openwrt-agent-sdk`：在同一台主机上创建 Agent A 和 Agent B，为它们各租用一个全球 IPv6 `/128`，让 A 按 B 的 IPv6 地址调用 B，再让 B 按 A 的地址调用 A。调用路径中没有 OpenWrt、Router 注册、Directory、AFIB 或 Relay。
 
 完成后你会看到类似结果：
 
@@ -16,6 +16,8 @@ Agent B: [真实 IPv6 B]:9443
 A → B: demo.hello
 B → A: demo.hello
 ```
+
+先完成[安装](../quickstart/installation.md)。以下实验针对可用 `/64` 的 Host Alias 路径；其他地址模式见 [Linux 指南](../guides/linux-ipv6.md)。
 
 ## 你需要什么
 
@@ -34,17 +36,19 @@ B → A: demo.hello
 从源码仓库运行：
 
 ```bash
-cd sdk/nexus-agent-sdk-python
+git clone https://github.com/Nexilume-AI/nexus-agent-sdk-python.git
+cd nexus-agent-sdk-python
 python -m venv .venv
+# Linux: . .venv/bin/activate
+# Windows PowerShell: .venv\Scripts\Activate.ps1
 python -m pip install -e .
 ```
 
-Linux 管理员在单独终端启动受限地址服务，把示例值替换为真实网卡和 `/64`：
+Linux 使用 systemd 安装流程；前提与 0.46.2 修复见 [Linux IPv6 指南](../guides/linux-ipv6.md)：
 
 ```bash
-sudo nexus-agent-addressd \
-  --interface eth0 \
-  --prefix 240e:1234:5678:1200::/64
+nexus-agent ipv6 setup
+nexus-agent ipv6 doctor
 ```
 
 Windows 使用一条命令完成发现、UAC 提权、服务安装和临时 `/128` 自检：
@@ -64,7 +68,7 @@ nexus-agent ipv6 doctor
 
 示例使用明文 HTTP 且不使用 JWT，只用于隔离实验网。显式打开实验保护开关后运行：
 
-Linux/macOS：
+Linux：
 
 ```bash
 export NEXUS_IPV6_LAB=1

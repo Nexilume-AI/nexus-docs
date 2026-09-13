@@ -7,6 +7,10 @@ title: Advanced Settings
 
 该页同时修改 `agent`、`agent_gateway` 和 `agent_adapter`。无效候选由 `agentd` 原子拒绝，不替换当前有效配置。常规部署优先使用 Quick Setup。
 
+## Source defaults
+
+下表来自当前 `agentd.config`。UCI-defaults、User mode 操作及升级保留配置可能改变有效值；用 `uci show agent` 核对目标设备。`router_mesh_mode` 默认 `open`，`off` 表示 Managed peer trust。
+
 ## Identity & capacity
 
 | 字段 | 作用 | 默认/范围 |
@@ -20,20 +24,20 @@ title: Advanced Settings
 
 | 字段 | 作用 | 默认/风险 |
 | --- | --- | --- |
-| Enable outbound peer transport | 主动连接 Peer/Relay | 关闭 |
-| Enable inbound peer listener | 接受其他 Router 的 ARPX | 关闭；同时配置 TLS 和防火墙 |
+| Enable outbound peer transport | 主动连接 Peer/Relay | 开启 |
+| Enable inbound peer listener | 接受其他 Router 的 ARPX | 开启；同时配置 TLS 和防火墙 |
 | Reflect learned routes | 把学习路由传播给其他 Peer | 关闭；普通边缘 Router 不开 |
 | Listen IPv4 / port | 入站 ARPX 监听 | `0.0.0.0:7444` |
 | Maximum inbound sessions | 入站连接上限 | 8；1–128 |
-| Enable shared Invoke tunnel | 在 ARPX/Relay 会话上承载 Invoke | 关闭；两端协议必须匹配 |
+| Enable shared Invoke tunnel | 在 ARPX/Relay 会话上承载 Invoke | 开启；两端协议必须匹配 |
 
 ## LAN discovery
 
 | 字段 | 作用 | 默认/范围 |
 | --- | --- | --- |
-| Consume LAN DNS-SD | 发现其他 Router | 关闭 |
-| Publish router DNS-SD record | 让其他 Router 发现本机 | 关闭 |
-| Zero-configuration admission | off、same-domain、allowlist、all | off；生产避免 all |
+| Consume LAN DNS-SD | 发现其他 Router | 开启 |
+| Publish router DNS-SD record | 让其他 Router 发现本机 | 开启 |
+| Zero-configuration admission | off、same-domain、allowlist、all | all；Open Mesh 默认自动准入，受管模式另行配置 |
 | Router allowlist | allowlist 模式的 Router ID | 每项一个 |
 | Graceful restart | 自动准入 Peer 的重启宽限 | 30 秒；5–300 |
 
@@ -51,14 +55,13 @@ title: Advanced Settings
 
 `all-signed` 只证明 Card 签名满足本地策略；`directory-trusted` 还要求已验证、未过期的 Directory 信任包。
 
-## Relay bootstrap
+## Open Mesh Relay
 
 | 字段 | 作用 | 默认/范围 |
 | --- | --- | --- |
-| Enable Directory / Relay bootstrap | 从 Directory 获取 Relay 租约 | 关闭 |
-| Directory assignment URLs | 有序 HTTPS URL，最多四个 | 主机名是 TLS 身份 |
+| Enable self-hosted Open Mesh Relay | 从 Directory 获取 Relay 租约 | 关闭 |
+| Open Mesh Directory URLs | 有序 HTTPS URL，最多四个 | 主机名是 TLS 身份 |
 | Optional fixed Directory IPv4 | 与 URL 一一对应的底层地址 | 留空走 DNS |
-| Assignment poll | 续租/轮询间隔 | 60000 ms；1000–3600000 |
 | Directory timeout | 单次请求超时 | 5000 ms；100–60000 |
 | Require forwarding assertions | 远端 Invoke 必须带可信源 Router 断言 | 默认关闭；跨域高信任部署建议启用 |
 
@@ -66,8 +69,8 @@ title: Advanced Settings
 
 | 字段 | 作用 | 默认/条件 |
 | --- | --- | --- |
-| IPv6 address source | routed-prefix 或 upstream-relay | routed-prefix |
-| Assign public IPv6 addresses | 允许 `public_ipv6="auto"` | 关闭 |
+| IPv6 address source | auto、routed-prefix 或 upstream-relay | auto |
+| Assign public IPv6 addresses | 允许 `public_ipv6="auto"` | 开启（仍需有效上游） |
 | Detected routed/PD prefix | 只读显示 `/48`–`/64` | 未检测时需人工路由或选 no-PD 模式 |
 | Detected upstream on-link `/64` | 只读显示 WAN `/64` | upstream-relay 前提 |
 | Agent IPv6 source prefix | 实际分配前缀 | `/48`–`/64`；upstream-relay 必须 `/64` |
@@ -112,3 +115,5 @@ title: Advanced Settings
 | Allow MCP and A2A streaming | 允许适配器流式输出；还需 gateway streaming |
 
 协议到能力的映射在 [Agent APIs & Protocols](protocols.md) 配置。
+
+本页配置 `open_mesh_relay_enabled` 和 `open_mesh_directory_endpoints`，不修改 Cloud Relay。Open Mesh 端点使用 `/v1/open-mesh/assignment`，最多四个；Cloud 连接使用 Developer mode → Nexus Cloud。默认 Router Mesh 为 Open，手动审核流程需先切换 Managed peer trust。

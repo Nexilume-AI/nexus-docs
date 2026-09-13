@@ -19,7 +19,8 @@ Lock application dependencies and run existing tests. The base SDK has no third-
 ## Upgrade from local source
 
 ```bash
-cd sdk/nexus-agent-sdk-python
+git clone https://github.com/Nexilume-AI/nexus-agent-sdk-python.git
+cd nexus-agent-sdk-python
 python -m pip install --upgrade -e .
 ```
 
@@ -35,7 +36,8 @@ python -m pip install --upgrade -e ".[windows]"
 
 ```bash
 python -c "import nexus_agent; print(nexus_agent.__version__)"
-python -m unittest discover -s sdk/nexus-agent-sdk-python/tests
+python -m pip install pytest
+python -m pytest tests -q
 ```
 
 Start an agent and complete one normal and one streaming call. When an upgrade crosses authentication, resume, or IPv6 changes, run integration tests against the target router release.
@@ -43,3 +45,7 @@ Start an agent and complete one normal and one streaming call. When an upgrade c
 ## Roll back
 
 Reinstall the previous trusted tag or wheel and restore the dependency lock. Do not downgrade only `fastmcp` or `a2a-sdk` into an unknown combination; check the ranges in this version's `pyproject.toml`.
+
+## GitHub Releases
+
+Download a wheel from [GitHub Releases](https://github.com/Nexilume-AI/nexus-agent-sdk-python/releases) and follow [installation](../quickstart/installation.md). The published package is 0.46.2; main includes a Linux service group fix not yet shipped in a new release. Updating source does not update an installed wheel, the staged addressd runtime or a Cloud container.

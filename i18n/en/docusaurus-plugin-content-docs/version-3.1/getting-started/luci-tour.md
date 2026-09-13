@@ -5,38 +5,24 @@ title: LuCI interface tour
 
 # LuCI interface tour
 
-The illustrations below are drawn from the current LuCI source. They are not screenshots from a running device. Fields, menus, and status cards match `luci-app-agent-router 3.1.0`; theme, language, and viewport change the actual appearance.
+The current menu is **Status → Agent Routing**, opening **User mode** by default. Legacy direct Overview/Quick Setup URLs redirect to the user home. Expand **Developer mode** for detailed configuration.
 
-## Quick Setup: configure the Agent private cloud
+## User mode
 
-![LuCI Quick Setup illustration](/img/openwrt/luci-quick-setup.svg)
+The home page shows Nexus Cloud, This Router, Neighbor Routers and Agents, with three switches:
 
-Quick Setup is the actual LuCI entry for creating the private-cloud network. First-time users need four groups:
+| Feature | Purpose |
+| --- | --- |
+| Cloud connection | Pair Cloud and synchronize eligible Agents |
+| Router network | Discover neighbors, establish Peers and exchange capability routes |
+| Agent services | SDK registration and Agent invocation |
 
-1. **Identity and service**: enable routing; Agent domain defines the private-cloud trust domain and Router ID identifies this node.
-2. **LAN discovery**: choose whether to discover and publish other LAN nodes.
-3. **LAN admission**: select manual approval, same-domain trust, or an allowlist.
-4. **Cross-network Relay**: enable it only when a Directory operator supplies an assignment URL and NAT traversal is required.
+Use **Pair with Nexus Cloud** for pairing. A new code replaces an existing registration. Read-only accounts can inspect status but cannot change configuration.
 
-A Router ID is 1–64 characters, uses lowercase letters, digits, dots, underscores, or hyphens, and starts and ends with a letter or digit.
+## Developer mode
 
-## Overview: verify the private-cloud node
+Quick Setup controls identity and discovery. Nexus Cloud controls Cloud address, pairing and Direct/Relay transport. Router Roles controls self-hosted services. Agent APIs & Protocols controls SDK, protocols and authentication; Local Agents and Capability Routes expose detailed leases and AFIB.
 
-![LuCI Overview illustration](/img/openwrt/luci-overview.svg)
+Overview, Neighbors & Discovery and Peer Trust help diagnose services, sessions and admission. Advanced Settings, Static Peers and Policy RIB provide detailed controls. See the [page reference](../reference/luci-pages/index.md).
 
-Green does not prove every business call succeeds, but it confirms usable control-plane state:
-
-- **AFIB routes**: selectable capability routes.
-- **ARPX sessions**: connected private-cloud node Peers.
-- **LAN candidates**: discovered nodes awaiting or receiving admission.
-- **Relay tunnels**: cross-NAT Relay tunnels.
-- **Public Agent IPv6**: Router-managed public IPv6 leases.
-- **Recovery**: successful UCI load; inspect Last error when Degraded.
-
-The page polls bounded metadata every five seconds. It does not read prompts, tool arguments, model output, access tokens, or task bodies.
-
-## Next step
-
-- One-node private cloud: [publish your first Agent](/sdk/quickstart/first-agent).
-- Extend the private cloud: [connect two Routers](../tutorials/two-router.md).
-- Degraded state: [collect diagnostics](../troubleshooting/diagnostics.md).
+After saving, inspect runtime status and make a real invocation. Green cards do not prove remote calls, public IPv6 or Cloud pairing have succeeded.

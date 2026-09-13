@@ -17,3 +17,5 @@ This page performs stateful trust operations that affect routes.
 | Directory Card trust keys | Signed bundle Router/key/status/SHA-256 evidence |
 
 `agentd` validates candidate generation during approval; a changed candidate fails without altering the live table. Revocation removes learned capabilities. Auto-admitted candidates can return, so also change admission mode or its allowlist. DNSSEC without an authorized Card proves naming data, not business authorization.
+
+Self-hosted OpenWrt Open Mesh and Cloud Relay have separate connection state and trust configuration. See [Cloud Relay](../../guides/cloud-relay.md) for Cloud (including Community), or [node roles](../../guides/router-roles.md) for self-hosted seeds.

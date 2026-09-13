@@ -5,13 +5,13 @@ title: 发现、信任、邻居与 Relay
 
 # 发现、信任、邻居与 Relay
 
-“知道某台 Router 在哪里”“愿意与它建立会话”“允许它发布或调用哪些能力”是三个独立问题。系统刻意不把发现结果直接升级为信任，否则同一 LAN 中任何广播者都可能进入能力路由表。
+“知道某台 Router 在哪里”“愿意与它建立会话”“允许它发布或调用哪些能力”是三个独立问题。当前 Open Mesh 默认自动准入经过发现校验的 Router；需要显式审批边界时使用 Managed peer trust。自动准入不会跳过能力租约与路由策略。
 
 ## LAN 发现只产生候选
 
-Router 可通过 `_agent-router._tcp.local` DNS-SD 发布身份。接收端从 `umdns` 缓存构建有界候选表，并校验 TXT 字段、来源和 TTL。候选默认不会自动创建 peer，也不会直接写入 ARIB/AFIB。
+Router 可通过 `_agent-router._tcp.local` DNS-SD 发布身份。接收端从 `umdns` 缓存构建有界候选表，并校验 TXT 字段、来源和 TTL。Open Mesh 默认可由有效候选自动创建 Peer；候选本身不会直接写成 Agent 能力路由。
 
-LuCI 的 LAN admission 决定下一步：手动、同域或 allowlist。即使选择自动准入，也仍需身份、域和端点满足策略。
+在 Managed peer trust 中，LAN admission 决定手动、同域或 allowlist 准入。Open Mesh 是独立的开放组网模式，可以跨域交换能力；不能仅凭 domain 判断授权边界。
 
 ## ARPX 邻居交换什么
 
@@ -53,3 +53,5 @@ Directory 回答“应该连接哪个 Relay”；Relay 搬运受约束的控制�
 - NAT/跨互联网：Directory + Relay，保持 Node 主动出站。
 
 实际配置入口见[路由器角色](../guides/router-roles.md)和[双路由器教程](../tutorials/two-router.md)。
+
+OpenWrt 自托管 Open Mesh 与 Cloud Relay 使用独立连接状态和信任配置。Cloud（含社区版）的接入见[Cloud Relay](../guides/cloud-relay.md)，自托管 seed 见[节点角色](../guides/router-roles.md)。

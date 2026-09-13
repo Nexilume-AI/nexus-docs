@@ -54,3 +54,5 @@ flowchart LR
 ```
 
 Continue with [address ownership](addressing.md), [discovery and trust](discovery.md), and [scenario recipes](scenarios.md). See the [LuCI page guide](../reference/luci-pages/index.md) for UI fields.
+
+Self-hosted OpenWrt Open Mesh and Cloud Relay have separate connection state and trust configuration. See [Cloud Relay](../guides/cloud-relay.md) for Cloud (including Community), or [node roles](../guides/router-roles.md) for self-hosted seeds.

@@ -5,13 +5,13 @@ title: Discovery, trust, peers, and Relay
 
 # Discovery, trust, peers, and Relay
 
-Knowing where a Router is, choosing to establish a session, and authorizing its capabilities are three different decisions. Discovery deliberately does not become trust; otherwise any LAN advertiser could enter the capability routing table.
+Knowing where a Router is, choosing to establish a session, and authorizing its capabilities are three different decisions. Current Open Mesh automatically admits validated Router discoveries. Choose Managed peer trust for explicit approval boundaries. Automatic admission does not bypass capability leases or route policy.
 
 ## LAN discovery produces candidates
 
-Routers can advertise `_agent-router._tcp.local` through DNS-SD. Receivers build a bounded candidate table from `umdns`, validating TXT fields, source, and TTL. Candidates do not automatically become peers or ARIB/AFIB routes.
+Routers can advertise `_agent-router._tcp.local` through DNS-SD. Receivers build a bounded candidate table from `umdns`, validating TXT fields, source, and TTL. Open Mesh can automatically turn valid candidates into Peers. Candidates themselves do not become Agent capability routes.
 
-LuCI LAN admission chooses the next step: manual, same-domain, or allowlist. Automatic admission still requires identity, domain, and endpoint policy to match.
+In Managed peer trust, LAN admission selects manual, same-domain or allowlist admission. Open Mesh is a separate open networking mode and can exchange capabilities across domains; a domain label alone is not an authorization boundary.
 
 ## What ARPX peers exchange
 
@@ -48,3 +48,5 @@ Mutual TLS proves possession of a trusted certificate. Router/Directory trust de
 Choose LAN discovery plus admission for small LANs, static direct peers for fixed sites, a reflector for hub-and-spoke scale, and Directory plus Relay for NAT or Internet paths.
 
 See [Router roles](../guides/router-roles.md) and the [two-router tutorial](../tutorials/two-router.md).
+
+Self-hosted OpenWrt Open Mesh and Cloud Relay have separate connection state and trust configuration. See [Cloud Relay](../guides/cloud-relay.md) for Cloud (including Community), or [node roles](../guides/router-roles.md) for self-hosted seeds.

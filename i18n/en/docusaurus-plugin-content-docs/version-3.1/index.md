@@ -9,7 +9,15 @@ description: Start by configuring an Agent private cloud network, then learn com
 
 Nexus Agent Router turns OpenWrt into an Agent private-cloud node. Agents publish leased capabilities; callers discover and invoke them; the Router enforces identity, trust, policy, selection, and forwarding. Use the guide as task reference or read it as a textbook from principles through labs.
 
+
+:::note Documentation version policy
+All version entries show current documentation. Version labels preserve existing URLs; they do not guarantee that every documented feature works on that older software release. Check the software versions and prerequisites stated on each page.
+:::
+
+
 ## Configure an Agent private cloud network
+
+For a computer-based experience, see the [full OpenWrt VM](getting-started/desktop-vm.md). Prepare a bundle containing the matching VHDX before starting; source-only checkouts require image building first. Physical routers use the device installation path.
 
 1. [Choose a deployment path](getting-started/choose-path.md), then [create the trust domain and first node](getting-started/quick-setup.md).
 2. Use the [communication mode selector](communication/model.md) to choose address ownership, data path, and discovery.
@@ -41,3 +49,5 @@ Reinforce the model with the [route lifecycle](tutorials/route-lifecycle-lab.md)
 - Runtime trouble: begin at the [diagnostics center](troubleshooting/diagnostics.md).
 
 The current OpenWrt package line is **3.1**; see [package reference](reference/packages.md) for component versions.
+
+The current LuCI home is **Status → Agent Routing → User mode**, with detailed settings under Developer mode. Cloud Community also provides Relay; see [Cloud Relay](guides/cloud-relay.md).

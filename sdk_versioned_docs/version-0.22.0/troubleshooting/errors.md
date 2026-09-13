@@ -24,3 +24,7 @@ title: SDK 常见错误
 ## Agent 注册后很快消失
 
 检查续租线程是否仍在运行、进程是否被阻塞、路由器时间是否正确，以及网络是否周期性中断。正常退出应撤销租约；崩溃则等待租约超时。
+
+## Computer Runtime / Linux IPv6
+
+Computer 重连、浏览器发现与截图上传问题见 [Computer Runtime](../guides/computer-runtime.md)。0.46.2 Unix socket 组权限问题与普通用户验证见 [Linux IPv6](../guides/linux-ipv6.md)。

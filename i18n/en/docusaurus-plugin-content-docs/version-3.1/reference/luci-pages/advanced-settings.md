@@ -7,6 +7,10 @@ title: Advanced Settings
 
 This page writes `agent`, `agent_gateway`, and `agent_adapter`. `agentd` rejects an invalid candidate atomically and preserves the active configuration. Prefer Quick Setup for normal deployments.
 
+## Source defaults
+
+Values below come from current `agentd.config`. UCI defaults, User mode actions and retained upgrades can change effective values; inspect the device with `uci show agent`. `router_mesh_mode` defaults to `open`; `off` means Managed peer trust.
+
 ## Identity & capacity
 
 | Field | Purpose | Default/range |
@@ -20,20 +24,20 @@ This page writes `agent`, `agent_gateway`, and `agent_adapter`. `agentd` rejects
 
 | Field | Purpose | Default/risk |
 | --- | --- | --- |
-| Enable outbound peer transport | Connect to Peers/Relay | Off |
-| Enable inbound peer listener | Accept ARPX from Routers | Off; configure TLS/firewall |
+| Enable outbound peer transport | Connect to Peers/Relay | On |
+| Enable inbound peer listener | Accept ARPX from Routers | On; configure TLS/firewall |
 | Reflect learned routes | Propagate learned routes | Off; not for normal edges |
 | Listen IPv4 / port | Inbound ARPX listener | `0.0.0.0:7444` |
 | Maximum inbound sessions | Connection bound | 8; 1–128 |
-| Enable shared Invoke tunnel | Carry Invoke on ARPX/Relay sessions | Off; both sides must agree |
+| Enable shared Invoke tunnel | Carry Invoke on ARPX/Relay sessions | On; both sides must agree |
 
 ## LAN discovery
 
 | Field | Purpose | Default/range |
 | --- | --- | --- |
-| Consume LAN DNS-SD | Discover Routers | Off |
-| Publish router DNS-SD record | Make this Router discoverable | Off |
-| Zero-configuration admission | off, same-domain, allowlist, all | off; avoid all in production |
+| Consume LAN DNS-SD | Discover Routers | On |
+| Publish router DNS-SD record | Make this Router discoverable | On |
+| Zero-configuration admission | off, same-domain, allowlist, all | all; Open Mesh automatically admits peers; configure managed trust separately |
 | Router allowlist | IDs for allowlist mode | One per item |
 | Graceful restart | Auto-admitted Peer grace | 30 seconds; 5–300 |
 
@@ -51,14 +55,13 @@ This page writes `agent`, `agent_gateway`, and `agent_adapter`. `agentd` rejects
 
 `all-signed` applies local signature policy; `directory-trusted` additionally requires a verified, unexpired Directory trust bundle.
 
-## Relay bootstrap
+## Open Mesh Relay
 
 | Field | Purpose | Default/range |
 | --- | --- | --- |
-| Enable Directory / Relay bootstrap | Obtain a Relay lease | Off |
-| Directory assignment URLs | Up to four ordered HTTPS URLs | Hostname is TLS identity |
+| Enable self-hosted Open Mesh Relay | Obtain a Relay lease | Off |
+| Open Mesh Directory URLs | Up to four ordered HTTPS URLs | Hostname is TLS identity |
 | Optional fixed Directory IPv4 | Positional underlay override | Empty uses DNS |
-| Assignment poll | Renewal/poll interval | 60000 ms; 1000–3600000 |
 | Directory timeout | Request timeout | 5000 ms; 100–60000 |
 | Require forwarding assertions | Require trusted source-Router delegation | Off; useful for trusted cross-domain deployments |
 
@@ -66,8 +69,8 @@ This page writes `agent`, `agent_gateway`, and `agent_adapter`. `agentd` rejects
 
 | Field | Purpose | Default/condition |
 | --- | --- | --- |
-| IPv6 address source | routed-prefix or upstream-relay | routed-prefix |
-| Assign public IPv6 addresses | Allows `public_ipv6="auto"` | Off |
+| IPv6 address source | auto, routed-prefix or upstream-relay | auto |
+| Assign public IPv6 addresses | Allows `public_ipv6="auto"` | On (valid upstream still required) |
 | Detected routed/PD prefix | Read-only `/48`–`/64` | Route a prefix or choose no-PD mode |
 | Detected upstream on-link `/64` | Read-only WAN prefix | Required for upstream-relay |
 | Agent IPv6 source prefix | Allocation source | `/48`–`/64`; exactly `/64` for upstream-relay |
@@ -112,3 +115,5 @@ Plain HTTP exposes JWTs and payloads and is never a TLS-failure fallback. The de
 | Allow MCP and A2A streaming | Adapter streaming; gateway streaming is also required |
 
 Configure protocol-to-capability mappings under [Agent APIs & Protocols](protocols.md).
+
+This page controls `open_mesh_relay_enabled` and `open_mesh_directory_endpoints`, never Cloud Relay. Open Mesh uses up to four `/v1/open-mesh/assignment` endpoints; Cloud connections use Developer mode → Nexus Cloud. Router Mesh defaults to Open; switch to Managed peer trust before using a manual-approval workflow.

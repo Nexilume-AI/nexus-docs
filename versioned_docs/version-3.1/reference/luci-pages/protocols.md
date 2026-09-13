@@ -88,3 +88,7 @@ title: Agent APIs & Protocols
 | Show Python example | 为当前映射生成 caller/called-Agent 示例 |
 
 映射是显式的 `protocol + authority + selector → intent.vN`。请求正文不参与路由推断，避免同一 prompt 被错误发送到不同能力。
+
+## User mode 与 LAN SDK
+
+当前 User mode 的 **Agent services** 同时启用注册、调用、LAN SDK listener、LAN 回调和 adapter。LAN SDK listener 默认地址为 `0.0.0.0:7446`；原生软件包中的功能开关默认值不等于用户启用该功能后的状态。旧的 No JWT LAN listener `7445` 是另一独立入口，不能与 `7446` 混称。调用方应使用已启用入口及其认证流程；确认主机回调地址可从 Router 访问。

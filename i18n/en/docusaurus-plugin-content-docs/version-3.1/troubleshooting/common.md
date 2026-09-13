@@ -13,7 +13,7 @@ Confirm that `luci-app-agent-router` is installed, then sign out and back in. If
 
 ```bash
 logread | grep -E 'agentd|agent-gw|agent-adapter'
-uci show agentd
+uci show agent
 ```
 
 Resolve configuration parse errors, occupied ports, invalid certificate paths, and missing dependencies first.

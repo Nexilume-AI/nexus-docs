@@ -20,7 +20,7 @@ Windows Host Alias places several global IPv6 `/128` addresses on one physical i
 From the package:
 
 ```powershell
-python -m pip install "nexus-agent-sdk[windows]"
+python -m pip install "./nexus_openwrt_agent_sdk-0.46.2-py3-none-any.whl[windows]"
 nexus-agent ipv6 setup
 ```
 
@@ -79,3 +79,5 @@ The machine-owned runtime is under `C:\ProgramData\Nexus\addressd-runtimes`. The
 - Local calls work but remote calls fail: inspect Windows Firewall and upstream routing. Setup never permanently opens a public port.
 
 See [Two IPv6 Agents calling each other](../tutorials/ipv6-agents-call-each-other.md) for the complete call path.
+
+Complete [installation](../quickstart/installation.md) first. Source commands run at the standalone SDK repository root; download wheels from GitHub Releases rather than installing this project from PyPI.

@@ -24,3 +24,7 @@ Agent 把一个或多个能力注册到路由器。调用方通过路由器发�
 ## 下线
 
 正常停止时让 SDK 撤销租约。异常退出后，路由器会在租约到期后移除路由。不要依赖无限期租约掩盖不可用的 Agent。
+
+## User mode 与 LAN SDK
+
+当前 User mode 的 **Agent services** 同时启用注册、调用、LAN SDK listener、LAN 回调和 adapter。LAN SDK listener 默认地址为 `0.0.0.0:7446`；原生软件包中的功能开关默认值不等于用户启用该功能后的状态。旧的 No JWT LAN listener `7445` 是另一独立入口，不能与 `7446` 混称。调用方应使用已启用入口及其认证流程；确认主机回调地址可从 Router 访问。

@@ -11,13 +11,13 @@ title: 发现、信任与通信路径
 
 Router 通过 `_agent-router._tcp.local` 发布和消费 DNS-SD 记录。候选包含 Router ID、域、地址、端口和租约时间等有限元数据，不包含 prompt、token 或 Agent 调用内容。
 
-默认只观察候选。可在 **Quick Setup → LAN admission** 或 **Advanced Settings → LAN discovery** 中选择手工批准、同域自动准入、allowlist 或全部已验证 LAN Router。生产环境优先使用手工、同域或 allowlist。
+当前默认 Open Mesh 会自动准入经过校验的 LAN Router。需要手工、同域或 allowlist 管理时，先在 **Developer mode → Advanced Settings → Router Mesh** 切换 **Managed peer trust**，再配置 LAN admission。域名相同不代表默认存在隔离边界。
 
 ## DNSSEC SVCB
 
 跨域发现查询 `_agents.<domain>` 的 SVCB 记录。Router 只接受本地验证解析器返回且带有 DNSSEC authenticated-data 证据的结果。SVCB 中的目标、端口和 `ipv4hint` 仍然只是候选信息；`ipv4hint` 不是信任证明。
 
-SVCB 适合跨管理域找到 Router，不是 Agent 数据传输协议。候选还需在 **Peer Trust** 中批准，或由 Agent Card / Directory 信任策略授权。
+SVCB 适合跨管理域找到 Router，不是 Agent 数据传输协议。Open Mesh 可自动准入经过 DNSSEC 校验的候选；Managed peer trust 则按 Peer Trust、Agent Card / Directory 策略处理。两种模式都仍需收到能力通告才能形成可选路由。
 
 ## Directory 与 NAT Relay
 
@@ -49,3 +49,5 @@ Invoke
 ```
 
 删除或撤销 Peer 后，已学习能力会立即撤销或进入受控的 graceful expiry；自动准入来源若仍有效，候选可能在下次刷新时再次出现，因此还要修改自动准入模式或 allowlist。
+
+OpenWrt 自托管 Open Mesh 与 Cloud Relay 使用独立连接状态和信任配置。Cloud（含社区版）的接入见[Cloud Relay](../guides/cloud-relay.md)，自托管 seed 见[节点角色](../guides/router-roles.md)。

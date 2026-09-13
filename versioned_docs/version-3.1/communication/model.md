@@ -56,3 +56,5 @@ flowchart LR
 ```
 
 继续阅读[地址归属模型](addressing.md)、[发现、信任与路径](discovery.md)和[按场景配置](scenarios.md)。界面字段请查阅 [LuCI 页面总览](../reference/luci-pages/index.md)。
+
+OpenWrt 自托管 Open Mesh 与 Cloud Relay 使用独立连接状态和信任配置。Cloud（含社区版）的接入见[Cloud Relay](../guides/cloud-relay.md)，自托管 seed 见[节点角色](../guides/router-roles.md)。

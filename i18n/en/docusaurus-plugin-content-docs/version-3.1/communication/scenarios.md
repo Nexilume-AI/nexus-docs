@@ -19,8 +19,8 @@ One node already provides registration, routing, and invocation. Router-to-Route
 
 1. Give every node a unique Router ID; use the same Agent domain only when same-domain admission is intended.
 2. Publish and consume LAN DNS-SD.
-3. Start with **Manual approval** and inspect identity, domain, and endpoint in **Peer Trust**.
-4. Move to same-domain or allowlist after validation.
+3. Default Open Mesh automatically admits validated neighbors. For manual approval, first switch Router Mesh to Managed peer trust, then select Manual approval and inspect Peer Trust.
+4. In Managed peer trust, select same-domain or allowlist according to your intended boundary.
 5. Check the ARPX session in **Neighbors & Discovery**, then remote capabilities in **Capability Routes**.
 
 ## Scenario 3: join one public Agent host
@@ -49,9 +49,13 @@ Never deploy documentation prefix `2001:db8::/32`. Test routing to a leased `/12
 
 ## Scenario 6: extend the private cloud across NAT
 
-1. Enable Directory / Relay in **Quick Setup** or **Advanced Settings → Relay bootstrap**.
-2. Enter up to four operator-provided HTTPS assignment URLs in failover order.
+1. Enable self-hosted Open Mesh Relay in **Quick Setup** or **Advanced Settings → Open Mesh Relay**.
+2. Enter up to four seed-provided HTTPS `/v1/open-mesh/assignment` URLs in failover order.
 3. Hostnames remain the SNI and certificate identity; a fixed IPv4 is only an underlay override.
 4. Confirm an active assignment, Relay tunnel, and then remote routes in **Overview**.
 
 Normal NAT nodes remain **Node only**. Select a Relay or Directory server role under **Router Roles** only when this node provides that service to others.
+
+## Scenario seven: Cloud Community
+
+Community startup includes Cloud Relay. Pair the Router in **Developer mode → Nexus Cloud** and use Auto or Relay only; no self-hosted Directory URL is required in Quick Setup. See [Cloud Relay](../guides/cloud-relay.md) for server IP, device mTLS and verification.

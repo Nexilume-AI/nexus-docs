@@ -14,9 +14,11 @@ title: Quick Setup
 | Agent domain | Router 所属管理域 | 同域自动准入只在确有共同信任边界时使用 |
 | Discover Agent routers on LAN | 消费 `_agent-router._tcp.local` DNS-SD | 只有需要发现其他 Router 时开启 |
 | Publish this router on LAN | 发布本 Router DNS-SD 记录 | 希望被同 LAN Router 发现时开启 |
-| LAN admission | `off` 手工；`same-domain` 同域；`allowlist` 列表 | 首次部署选择手工 |
+| LAN admission | `off` 手工；`same-domain` 同域；`allowlist` 列表 | 手工流程需先切换 Managed peer trust |
 | Router allowlist | allowlist 模式允许自动准入的 Router ID | 一项一个稳定 ID |
-| Connect through Nexus Directory and Relay | 开启 NAT 后的 Directory/Relay bootstrap | 普通 LAN 不需要 |
-| Directory assignment URLs | Directory 的 HTTPS 分配地址，最多四个，顺序故障切换 | 使用运营方提供的 URL；主机名参与 TLS 校验 |
+| Connect to an OpenWrt Open Mesh seed | 开启 NAT 后的 Directory/Relay bootstrap | 普通 LAN 不需要 |
+| Open Mesh Directory URLs | Directory 的 HTTPS 分配地址，最多四个，顺序故障切换 | 使用运营方提供的 URL；主机名参与 TLS 校验 |
 
 LAN discovery 只产生候选。除自动准入策略命中外，仍需到 [Peer Trust](peer-trust.md) 审核。
+
+本页配置 `open_mesh_relay_enabled` 和 `open_mesh_directory_endpoints`，不修改 Cloud Relay。Open Mesh 端点使用 `/v1/open-mesh/assignment`，最多四个；Cloud 连接使用 Developer mode → Nexus Cloud。默认 Router Mesh 为 Open，手动审核流程需先切换 Managed peer trust。

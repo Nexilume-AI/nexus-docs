@@ -13,7 +13,7 @@ title: 常见问题
 
 ```bash
 logread | grep -E 'agentd|agent-gw|agent-adapter'
-uci show agentd
+uci show agent
 ```
 
 优先处理配置解析错误、端口占用、证书路径错误和缺失依赖。

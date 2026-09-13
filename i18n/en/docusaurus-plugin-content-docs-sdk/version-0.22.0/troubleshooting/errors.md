@@ -24,3 +24,7 @@ Confirm that the URL hostname matches a certificate SAN and that the correct CA 
 ## Agent disappears soon after registration
 
 Check that the renewal thread is running, the process is not blocked, router time is correct, and the network is stable. An orderly shutdown revokes the lease; a crash relies on lease expiry.
+
+## Computer Runtime / Linux IPv6
+
+For Computer reconnects, browser detection and screenshot upload failures, see [Computer Runtime](../guides/computer-runtime.md). For the 0.46.2 Unix socket group issue and non-root checks, see [Linux IPv6](../guides/linux-ipv6.md).

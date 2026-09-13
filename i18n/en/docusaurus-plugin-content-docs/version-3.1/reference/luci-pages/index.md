@@ -5,7 +5,7 @@ title: Pages and workflow
 
 # LuCI pages and workflow
 
-Find the menu under **Status → Agent Routing**. The user goal is “configure an Agent private cloud network”; the actual device entry remains named **Quick Setup**.
+The menu is **Status → Agent Routing**, opening **User mode** by default. Use Cloud connection, Router network and Agent services for common controls. Detailed pages below are under **Developer mode**. The **Nexus Cloud** page controls address, pairing and Direct/Relay transport; see the [connection guide](../../guides/cloud-relay.md).
 
 | Type | Pages | Use |
 | --- | --- | --- |
@@ -13,7 +13,7 @@ Find the menu under **Status → Agent Routing**. The user goal is “configure 
 | Feature configuration | [Agent APIs & Protocols](protocols.md), [Advanced Settings](advanced-settings.md), [Static Peers](static-peers.md), [Policy RIB](policy-rib.md) | Join Agents; configure public IPv6, discovery, Peers, and policy |
 | Status and trust | [Overview](overview.md), [Local Agents](local-agents.md), [Capability Routes](capability-routes.md), [Neighbors & Discovery](neighbors.md), [Peer Trust](peer-trust.md) | Verify nodes, leases, routes, neighbors, and trust |
 
-Recommended order: **Quick Setup → Agent APIs & Protocols → Local Agents → Capability Routes → Overview**. Configure discovery only when adding another node; enter Advanced Settings only for public `/128`, cross-domain, or NAT requirements.
+Recommended order: **User mode → Developer mode (as needed) → Local Agents → Capability Routes → actual invocation**. Use Quick Setup / Advanced Settings for identity or managed trust changes.
 
 :::tip Saved is not running
 Click **Save & Apply** after a change. A valid saved candidate is only the first check; verify services, sessions, leases, and routes on the status pages.

@@ -8,6 +8,8 @@ description: Use SDK Host Alias to obtain a dedicated IPv6 address without confi
 
 This quickstart does not begin by registering with a router. It first proves the most visible Nexus capability: **every Agent can have its own IPv6 address**. SDK Host Alias leases two different `/128` addresses to two Agents on one host, and both may use port `9443`.
 
+Complete [installation](../quickstart/installation.md) first. This exercise uses the Host Alias /64 path; see [Linux setup](../guides/linux-ipv6.md) for other address modes.
+
 ## 1. Check the requirement
 
 You need Python 3.9+ and a global IPv6 `/64` that is genuinely on-link or routed to the host. A single provider `/128`, a ULA, or the `2001:db8::/32` documentation prefix cannot run this exercise.
@@ -15,8 +17,11 @@ You need Python 3.9+ and a global IPv6 `/64` that is genuinely on-link or routed
 ## 2. Install
 
 ```bash
-cd sdk/nexus-agent-sdk-python
+git clone https://github.com/Nexilume-AI/nexus-agent-sdk-python.git
+cd nexus-agent-sdk-python
 python -m venv .venv
+# Linux: . .venv/bin/activate
+# Windows PowerShell: .venv\Scripts\Activate.ps1
 python -m pip install -e .
 ```
 
@@ -27,10 +32,11 @@ python -m pip install -e ".[windows]"
 nexus-agent ipv6 setup
 ```
 
-On Linux, an administrator starts `nexus-agent-addressd` in a separate terminal with the real interface and `/64`:
+On Linux, use the systemd installer. See [Linux IPv6 setup](../guides/linux-ipv6.md) for prerequisites and the 0.46.2 fix:
 
 ```bash
-sudo nexus-agent-addressd --interface eth0 --prefix 240e:1234:5678:1200::/64
+nexus-agent ipv6 setup
+nexus-agent ipv6 doctor
 ```
 
 ## 3. Understand the key code
@@ -54,7 +60,7 @@ agent = NexusAgent.public_ipv6(
 
 ## 4. Run and verify
 
-Linux/macOS:
+Linux:
 
 ```bash
 export NEXUS_IPV6_LAB=1

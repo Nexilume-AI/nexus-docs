@@ -5,38 +5,24 @@ title: LuCI 界面导览
 
 # LuCI 界面导览
 
-下面是根据当前 LuCI 源码绘制的界面示意，不是真实设备截图。字段、菜单和状态卡与 `luci-app-agent-router 3.1.0` 对应；主题、语言和屏幕宽度会改变实际外观。
+当前菜单是 **状态 → Agent Routing**，默认进入 **User mode**。旧的 Overview、Quick Setup 等直达路径会重定向到用户首页；需要详细设置时展开 **Developer mode**。
 
-## Quick Setup：配置 Agent 私有云网络
+## User mode
 
-![LuCI Quick Setup 界面示意](/img/openwrt/luci-quick-setup.svg)
+首页显示 Nexus Cloud、This Router、Neighbor Routers 与 Agents 的状态，并提供三个开关：
 
-Quick Setup 是创建私有云网络的实际 LuCI 入口。第一次使用需要理解四组设置：
+| 功能 | 作用 |
+| --- | --- |
+| Cloud connection | 配对 Cloud 并同步符合条件的 Agent |
+| Router network | 发现邻居、建立 Peer 并交换能力路由 |
+| Agent services | SDK 注册和 Agent 调用 |
 
-1. **Identity and service**：启用 Agent routing；Agent domain 定义私有云信任域，Router ID 定义当前节点身份。
-2. **LAN discovery**：决定是否发现和发布同 LAN 的其他私有云节点。
-3. **LAN admission**：选择手工批准、同域自动信任或 allowlist。
-4. **Cross-network Relay**：只有 Directory 运营方提供 assignment URL 且需要跨 NAT 时才启用。
+配对入口为 **Pair with Nexus Cloud**。已有注册时输入新配对码会替换旧注册。只读账号可查看状态，但不能修改配置。
 
-Router ID 长度为 1–64，只能使用小写字母、数字、点、下划线和连字符，并以字母或数字开头和结尾。
+## Developer mode
 
-## Overview：验证私有云节点
+身份与发现使用 Quick Setup；Cloud 地址、配对及 Direct/Relay 模式使用 Nexus Cloud；自托管服务使用 Router Roles。SDK、协议和认证在 Agent APIs & Protocols，详细租约与 AFIB 分别在 Local Agents 和 Capability Routes。
 
-![LuCI Overview 界面示意](/img/openwrt/luci-overview.svg)
+Overview、Neighbors & Discovery、Peer Trust 用于定位服务、会话和准入问题。Advanced Settings、Static Peers、Policy RIB 用于精细配置。完整索引见[逐页参考](../reference/luci-pages/index.md)。
 
-绿色不代表所有业务调用都成功，但说明对应控制面有可用状态：
-
-- **AFIB routes**：当前可选能力路由数。
-- **ARPX sessions**：已建立的私有云节点 Peer 会话数。
-- **LAN candidates**：等待审核或自动准入的 LAN 节点候选。
-- **Relay tunnels**：跨 NAT Relay 隧道数。
-- **Public Agent IPv6**：Router 管理的公网 IPv6 地址租约数。
-- **Recovery**：UCI 配置是否成功加载；Degraded 时先看 Last error。
-
-页面每 5 秒轮询有界元数据，不读取 prompt、工具参数、模型输出、访问令牌或任务正文。
-
-## 下一步
-
-- 单节点私有云：继续[发布第一个 Agent](/sdk/quickstart/first-agent)。
-- 扩展私有云：完成[双路由器组网](../tutorials/two-router.md)。
-- 状态异常：运行[一键诊断](../troubleshooting/diagnostics.md)。
+保存后检查实际运行状态，并执行一次真实调用。状态卡绿色不意味着远端调用、公网 IPv6 或 Cloud 配对都已经成功。

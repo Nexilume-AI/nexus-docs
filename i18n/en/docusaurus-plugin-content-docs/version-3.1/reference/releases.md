@@ -36,4 +36,4 @@ Checksums must come from a trusted channel separate from the package files.
 
 ## Version matching
 
-Components in one release batch can use different semantic versions, such as `agentd 3.1.0` and `agent-gw 0.21.0`. Do not mix packages by major version alone. Use the release manifest, build timestamp, and checksums to identify a batch.
+Components in one release batch can use different semantic versions, such as `agentd 3.1.0` and `agent-gw 0.22.0`. Do not mix packages by major version alone. Use the release manifest, build timestamp, and checksums to identify a batch.

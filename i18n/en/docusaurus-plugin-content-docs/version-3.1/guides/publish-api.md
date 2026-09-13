@@ -24,3 +24,7 @@ A normal call returns one JSON result. Long-running work can return progress and
 ## Stop an agent
 
 Let the SDK revoke its lease during an orderly shutdown. After a crash, the router removes routes when the lease expires. Do not use unlimited leases to hide an unavailable agent.
+
+## User mode and LAN SDK
+
+User mode **Agent services** enables registration, invocation, the LAN SDK listener, LAN callbacks and adapter together. The LAN SDK listener defaults to `0.0.0.0:7446`; raw package flag defaults differ from the effective state after enabling this feature. Legacy No JWT LAN listener `7445` is a separate endpoint. Use the enabled listener and its authentication flow, and ensure the Router can reach the host callback address.

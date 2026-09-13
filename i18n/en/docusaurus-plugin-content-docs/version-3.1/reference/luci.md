@@ -9,6 +9,8 @@ See the [page-by-page LuCI reference](luci-pages/index.md) for every field, depe
 
 | Page | Purpose |
 | --- | --- |
+| User mode | Cloud, Router network and Agent services controls/status |
+| Nexus Cloud (Developer mode) | Pairing, certificates and Cloud Direct/Relay modes |
 | Overview | Services, Peers, routes, Relay, and public IPv6 summary |
 | Quick Setup | First working deployment |
 | Router Roles | Node, Relay, and Directory roles |

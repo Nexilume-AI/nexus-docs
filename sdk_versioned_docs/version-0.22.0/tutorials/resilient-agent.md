@@ -9,7 +9,7 @@ title: 教程：从 Echo 到可恢复 Agent
 
 ## 你需要
 
-- Python 3.9+ 和已安装的 `nexus-agent-sdk`；
+- Python 3.9+ 和已安装的 `nexus-openwrt-agent-sdk`；
 - 完成 Router [快速配置](/openwrt/getting-started/quick-setup)；
 - 有注册和调用权限的 access JWT；可恢复流不能使用一次性 transaction token。
 

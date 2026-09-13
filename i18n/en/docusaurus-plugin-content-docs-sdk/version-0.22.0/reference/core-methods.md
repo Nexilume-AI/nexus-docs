@@ -1,131 +1,114 @@
 ---
 sidebar_position: 1
 title: Core classes and methods
-description: Method-level reference for NexusAgent, NexusAgentClient, NexusAgentServer, and IPv6 runtimes.
 ---
 
 # Core classes and methods
 
-This page covers the main SDK 0.22.0 runtime methods. Signatures are statically extracted from source with Griffe. See [Python API reference](api.md) for all top-level exports.
+These signatures are generated statically from current SDK source, including hosted mode, resource declarations and Computer Runtime. Release wheels can lag behind main. For usage, see [runtime modes](../concepts/runtime-model.md) and [Computer Runtime](../guides/computer-runtime.md).
 
 ## `NexusAgent`
 
-The high-level entry point combines a server, client, capability registration, lease renewal, and shutdown cleanup.
+[Source](https://github.com/Nexilume-AI/nexus-agent-sdk-python/blob/main/src/nexus_agent/agent.py)
 
-```python
-NexusAgent(
-    *, router: str = "auto", token: str | None = None,
-    token_provider: TokenProvider | None = None,
-    auth: str | TokenProvider | None = None,
-    transaction_token: str | None = None,
-    tenant: str = "default", agent_id: str | None = None,
-    listen_host: str = "auto", port: int = 0,
-    advertise_address: str = "auto", path: str = "/invoke",
-    router_ca_file: str | None = None,
-    router_cert_file: str | None = None,
-    router_key_file: str | None = None,
-    router_tls_server_name: str | None = None,
-    cert_file: str | None = None, key_file: str | None = None,
-    client_ca_file: str | None = None,
-    server_tls_name: str = "auto", server_ca_bundle_id: str = "system",
-    lease_seconds: int = 300, timeout: float = 10.0,
-)
+```text
+def NexusAgent.__init__(self, *, router: str='auto', token: Optional[str]=None, token_provider: Optional[TokenProvider]=None, auth: Optional[Union[str, TokenProvider]]=None, transaction_token: Optional[str]=None, tenant: str='default', agent_id: Optional[str]=None, listen_host: str='auto', port: int=0, advertise_address: str='auto', path: str='/invoke', router_ca_file: Optional[str]=None, auth_ca_file: Optional[str]=None, cloud_ca_file: Optional[str]=None, router_cert_file: Optional[str]=None, router_key_file: Optional[str]=None, router_tls_server_name: Optional[str]=None, cert_file: Optional[str]=None, key_file: Optional[str]=None, client_ca_file: Optional[str]=None, server_tls_name: str='auto', server_ca_bundle_id: str='system', lease_seconds: int=300, timeout: float=10.0, cloud_publish: bool=True, cloud_name: Optional[str]=None, computer_requirement: str='disabled', workspace_capabilities: Iterable[str]=(), mobile_requirement: str='disabled', mobile_capabilities: Iterable[str]=(), runtime: str='auto') -> None: ...
+
+def NexusAgent.capability(self, intent: str, *, public_ipv6: Optional[bool]=None, origin: Optional[str]=None, version: int=1, region: str='local', lease_seconds: Optional[int]=None, cost_microunits: int=0, latency_ms: int=0, trust: int=50, pass_envelope: bool=False, tool: Optional[Union[McpToolDescriptor, bool]]=None, mobile_scopes: Optional[Iterable[str]]=None, slash_command: Optional[str]=None, slash_description: str='', execution_profiles: Optional[Iterable[NexusExecutionProfile]]=None, input_modalities: Optional[Iterable[str]]=None, follow_up: Optional[str]=None) -> Callable[[BusinessHandler], BusinessHandler]: ...
+
+def NexusAgent.stream_capability(self, intent: str, *, public_ipv6: Optional[bool]=None, origin: Optional[str]=None, version: int=1, region: str='local', lease_seconds: Optional[int]=None, cost_microunits: int=0, latency_ms: int=0, trust: int=50, pass_envelope: bool=False, tool: Optional[Union[McpToolDescriptor, bool]]=None, mobile_scopes: Optional[Iterable[str]]=None, slash_command: Optional[str]=None, slash_description: str='', execution_profiles: Optional[Iterable[NexusExecutionProfile]]=None, input_modalities: Optional[Iterable[str]]=None) -> Callable[[BusinessStreamHandler], BusinessStreamHandler]: ...
+
+def NexusAgent.start(self, *, auto_renew: bool=True, renew_fraction: float=0.6, announce: bool=True, print_fn: Callable[[str], Any]=print) -> NexusAgentHandle: ...
+
+def NexusAgent.run(self, **start_options: Any) -> Any: ...
+
+def NexusAgent.as_mcp_server(self) -> Any: ...
+
+def NexusAgent.invoke(self, intent: str, payload: Any, *, target_agent: Optional[str]=None, intent_version: int=1, task_id: Optional[str]=None, hop_limit: int=8, constraints: Optional[Mapping[str, Any]]=None) -> Mapping[str, Any]: ...
+
+def NexusAgent.invoke_stream(self, intent: str, payload: Any, *, target_agent: Optional[str]=None, intent_version: int=1, task_id: Optional[str]=None, hop_limit: int=8, constraints: Optional[Mapping[str, Any]]=None, resume: bool=True, last_event_id: int=0, max_reconnects: int=3, reconnect_delay: float=0.25) -> Iterator[SseEvent]: ...
+
+def NexusAgent.public_ipv6(cls, address: str, **options: Any): ...
 ```
-
-| Method | Key parameters and result |
-| --- | --- |
-| `capability(intent, *, public_ipv6=True, origin=None, version=1, region="local", lease_seconds=None, cost_microunits=0, latency_ms=0, trust=50, pass_envelope=False)` | Normal handler decorator; returns the original handler |
-| `stream_capability(...)` | Streaming decorator with the same routing metadata |
-| `registrations()` | Returns `tuple[CapabilityRegistration, ...]` without starting |
-| `invoke(intent, payload, *, target_agent=None, intent_version=1, task_id=None, hop_limit=8, constraints=None)` | Routed call returning a mapping |
-| `invoke_stream(..., resume=True, last_event_id=0, max_reconnects=3, reconnect_delay=0.25)` | Returns `Iterator[SseEvent]`; resume is on by default |
-| `start(*, auto_renew=True, renew_fraction=0.6, announce=True, print_fn=print)` | Starts in the background and returns `NexusAgentHandle` |
-| `run(**start_options)` | Blocks and returns the published capability tuple |
-| `public_ipv6(address, **options)` | Class method creating a `PublicIPv6Agent` |
-
-Do not casually combine `token`, `token_provider`, `auth`, and `transaction_token`. A one-time transaction token cannot resume a stream.
 
 ## `NexusAgentClient`
 
-```python
-NexusAgentClient(
-    base_url: str, *, token: str | None = None,
-    token_provider: TokenProvider | None = None,
-    transaction_token: str | None = None,
-    ca_file: str | None = None, cert_file: str | None = None,
-    key_file: str | None = None, tls_server_name: str | None = None,
-    use_environment_proxy: bool = True, timeout: float = 10.0,
-    user_agent: str = "nexus-agent-sdk-python/0.22.0",
-)
-```
+[Source](https://github.com/Nexilume-AI/nexus-agent-sdk-python/blob/main/src/nexus_agent/client.py)
 
-| Method | Behavior |
-| --- | --- |
-| `register(registration, *, auto_renew=False, renew_fraction=0.6, health_check=None, reregister_on_not_found=True)` | Returns `AgentLease`; can auto-renew and re-register after 404 |
-| `renew(route_id, *, lease_seconds=None, latency_ms=None, load_permille=None, healthy=None, backend_tls=None)` | Updates lease and health metadata; returns `LeaseInfo` |
-| `unregister(route_id)` | Withdraws a route; returns `LeaseInfo` |
-| `route(envelope)` | Performs route selection only |
-| `invoke(envelope)` | Sends a complete Envelope |
-| `invoke_intent(intent, payload, *, tenant, source_agent, target_agent=None, intent_version=1, task_id=None, hop_limit=8, constraints=None)` | Builds and invokes an Envelope |
-| `invoke_stream(envelope, *, resume=True, last_event_id=0, max_reconnects=3, reconnect_delay=0.25)` | SSE iterator; reconnects up to three times by default |
+```text
+def NexusAgentClient.__init__(self, base_url: str, *, token: Optional[str]=None, token_provider: Optional[TokenProvider]=None, auth: Optional[Union[str, TokenProvider]]=None, transaction_token: Optional[str]=None, ca_file: Optional[str]=None, cert_file: Optional[str]=None, key_file: Optional[str]=None, tls_server_name: Optional[str]=None, use_environment_proxy: bool=True, timeout: float=10.0, user_agent: str='nexus-agent-sdk-python/0.35.0') -> None: ...
+
+def NexusAgentClient.register(self, registration: CapabilityRegistration, *, auto_renew: bool=False, renew_fraction: float=0.6, health_check: Optional[Callable[[], bool]]=None, reregister_on_not_found: bool=True) -> 'AgentLease': ...
+
+def NexusAgentClient.invoke_intent(self, intent: str, payload: Any, *, tenant: str, source_agent: str, target_agent: Optional[str]=None, intent_version: int=1, task_id: Optional[str]=None, hop_limit: int=8, constraints: Optional[Mapping[str, Any]]=None) -> JsonObject: ...
+
+def NexusAgentClient.invoke_stream(self, envelope: Mapping[str, Any], *, resume: bool=True, last_event_id: int=0, max_reconnects: int=3, reconnect_delay: float=0.25) -> Iterator[SseEvent]: ...
+```
 
 ## `AgentLease`
 
-| Member | Behavior |
-| --- | --- |
-| `route_id` | Current route ID; it can change after re-registration |
-| `public_ipv6` | Router-assigned public IPv6 or `None` |
-| `public_endpoint` | Public endpoint with TLS identity or `None` |
-| `renew(**updates)` | Manual renewal; healthy routes re-register after 404 by default |
-| `start_auto_renew()` | Starts the renewal thread and returns itself |
-| `close(unregister=True)` | Stops renewal and withdraws the route by default |
+[Source](https://github.com/Nexilume-AI/nexus-agent-sdk-python/blob/main/src/nexus_agent/client.py)
 
-Context-manager exit calls `close()`.
+```text
+def AgentLease.renew(self, **updates: Any) -> LeaseInfo: ...
+
+def AgentLease.close(self, *, unregister: bool=True) -> None: ...
+```
 
 ## `NexusAgentServer`
 
-```python
-NexusAgentServer(
-    host: str = "127.0.0.1", port: int = 0, *, path: str = "/invoke",
-    stream_path: str | None = None, auth: ServerAuthPolicy | None = None,
-    cert_file: str | None = None, key_file: str | None = None,
-    client_ca_file: str | None = None, address_family: str = "auto",
-    dual_stack: bool = False, max_request_bytes: int = 65536,
-    max_response_bytes: int = 262144, max_stream_event_bytes: int = 65536,
-    request_timeout: float = 15.0, resumable_streams: bool = True,
-    resume_max_tasks: int = 128, resume_max_events: int = 256,
-    resume_max_history_bytes: int = 262144,
-    resume_retention_seconds: float = 300.0,
-)
+[Source](https://github.com/Nexilume-AI/nexus-agent-sdk-python/blob/main/src/nexus_agent/server.py)
+
+```text
+def NexusAgentServer.__init__(self, host: str='127.0.0.1', port: int=0, *, path: str='/invoke', stream_path: Optional[str]=None, auth: Optional[ServerAuthPolicy]=None, cert_file: Optional[str]=None, key_file: Optional[str]=None, client_ca_file: Optional[str]=None, address_family: str='auto', dual_stack: bool=False, max_request_bytes: int=65536, max_response_bytes: int=262144, max_stream_event_bytes: int=65536, request_timeout: float=15.0, resumable_streams: bool=True, resume_max_tasks: int=128, resume_max_events: int=256, resume_max_history_bytes: int=262144, resume_retention_seconds: float=300.0, direct_tasks: bool=True, direct_task_max_tasks: int=128, direct_task_ttl_seconds: float=3600.0, direct_task_heartbeat_seconds: float=10.0, run_context_opener: Optional[Callable[..., Any]]=None) -> None: ...
+
+def NexusAgentServer.handler(self, intent: str) -> Callable[[SyncHandler], SyncHandler]: ...
+
+def NexusAgentServer.stream_handler(self, intent: str) -> Callable[[StreamHandler], StreamHandler]: ...
+
+def NexusAgentServer.serve_forever(self, poll_interval: float=0.25) -> None: ...
+
+def NexusAgentServer.serve_in_thread(self, *, daemon: bool=True) -> threading.Thread: ...
+
+def NexusAgentServer.serve_registered(self, client: NexusAgentClient, registrations: Iterable[CapabilityRegistration], *, auto_renew: bool=True, renew_fraction: float=0.6, health_check: Optional[Callable[[], bool]]=None, reregister_on_not_found: bool=True) -> None: ...
+
+def NexusAgentServer.shutdown(self) -> None: ...
+
+def NexusAgentServer.server_close(self) -> None: ...
 ```
 
-| Method | Behavior |
-| --- | --- |
-| `add_handler(intent, handler, *, stream_handler=None)` | Registers a handler explicitly |
-| `handler(intent)` / `stream_handler(intent)` | Normal and streaming decorators |
-| `remove_handler(intent)` / `has_handler(intent)` | Mutates or queries the handler table |
-| `serve_forever(poll_interval=0.25)` | Blocks in the current thread |
-| `serve_in_thread(daemon=True)` | Returns a background thread |
-| `is_healthy()` | True when the service thread and socket are usable |
-| `shutdown()` / `server_close()` | Stops the loop / closes the socket |
-| `registered(client, registrations, *, auto_renew=True, renew_fraction=0.6, health_check=None, reregister_on_not_found=True)` | Registration context that closes leases on exit |
-| `serve_registered(...)` | Registers and then serves forever |
+## `DirectIPv6Agent`
 
-Defaults are 64 KiB per request, 256 KiB per response, and 64 KiB per stream event. Oversized data fails before business processing.
+[Source](https://github.com/Nexilume-AI/nexus-agent-sdk-python/blob/main/src/nexus_agent/direct_ipv6.py)
 
-## Direct IPv6
+```text
+def DirectIPv6Agent.__init__(self, address: str, *, scheme: str='https', server_identity: Optional[str]=None, port: Optional[int]=None, token: Optional[str]=None, token_provider: Optional[TokenProvider]=None, transaction_token: Optional[str]=None, ca_file: Optional[str]=None, cert_file: Optional[str]=None, key_file: Optional[str]=None, security_profile: Optional[NexusSecurityProfile]=None, security_profile_file: Optional[Union[str, os.PathLike[str]]]=None, timeout: float=10.0) -> None: ...
 
-### `DirectIPv6Agent`
+def DirectIPv6Agent.plain_http(cls, address: str, *, token: Optional[str]=None, token_provider: Optional[TokenProvider]=None, transaction_token: Optional[str]=None, port: int=7443, timeout: float=10.0) -> 'DirectIPv6Agent': ...
 
-The constructor defaults to HTTPS and a ten-second timeout and accepts only IPv6 addresses without a zone ID. Main methods:
+def DirectIPv6Agent.invoke(self, intent: str, payload: Any, *, tenant: str, source_agent: str, intent_version: int=1, task_id: Optional[str]=None, hop_limit: int=8, constraints: Optional[Mapping[str, Any]]=None) -> Dict[str, Any]: ...
 
-- `from_endpoint(endpoint, **credentials)`: construct from `PublicAgentEndpoint`.
-- `plain_http(address, *, token=None, token_provider=None, transaction_token=None, port=7443, timeout=10.0)`: explicit cleartext mode; rejects TLS arguments.
-- `invoke(..., tenant, source_agent, hop_limit=8, constraints=None)`: direct call.
-- `invoke_stream(..., resume=True, max_reconnects=3)`: direct SSE call.
+def DirectIPv6Agent.invoke_stream(self, intent: str, payload: Any, *, tenant: str, source_agent: str, intent_version: int=1, task_id: Optional[str]=None, hop_limit: int=8, constraints: Optional[Mapping[str, Any]]=None, resume: bool=True, last_event_id: int=0, max_reconnects: int=3, reconnect_delay: float=0.25) -> Iterator[SseEvent]: ...
+```
 
-### `PublicIPv6Agent`
+## `PublicIPv6Agent`
 
-The default port is 9443, the address lease is 300 seconds, and request/response limits match `NexusAgentServer`. `auth` is required. Use `capability()`, `stream_capability()`, `start()`, and `run()`.
+[Source](https://github.com/Nexilume-AI/nexus-agent-sdk-python/blob/main/src/nexus_agent/public_ipv6_agent.py)
 
-Do not use `plain_http()` or `NoServerAuth` in production. See [Direct IPv6 agents](../guides/direct-ipv6.md).
+```text
+def PublicIPv6Agent.__init__(self, address: str, *, auth: Union[str, ServerAuthPolicy], port: int=9443, tenant: str='default', agent_id: Optional[str]=None, address_mode: str='auto', allocator: Optional[LocalAddressdClient]=None, interface: str='auto', prefix: str='auto', address_lease_seconds: int=300, cert_file: Optional[str]=None, key_file: Optional[str]=None, client_ca_file: Optional[str]=None, tls_server_name: Optional[str]=None, ca_bundle_id: Optional[str]=None, max_request_bytes: int=65536, max_response_bytes: int=262144, max_stream_event_bytes: int=65536, request_timeout: float=15.0, resumable_streams: bool=True) -> None: ...
+
+def PublicIPv6Agent.start(self, *, announce: bool=True, print_fn: Callable[[str], Any]=print) -> PublicIPv6AgentHandle: ...
+
+def PublicIPv6Agent.run(self, **start_options: Any) -> PublicAgentEndpoint: ...
+```
+
+## `NexusComputerRuntime`
+
+[Source](https://github.com/Nexilume-AI/nexus-agent-sdk-python/blob/main/src/nexus_agent/computer_runtime.py)
+
+```text
+def NexusComputerRuntime.setup(cls, pairing_url: str, *, root: Union[Path, str]=DEFAULT_ROOT, name: str='', ca_file: str='', install: bool=True) -> 'NexusComputerRuntime': ...
+
+def NexusComputerRuntime.close(self) -> None: ...
+```

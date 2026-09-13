@@ -1,68 +1,43 @@
 ---
 sidebar_position: 2
-title: Configure an Agent private cloud network
-description: Start with one OpenWrt node and establish Agent private-cloud identity, boundaries, discovery, and access.
+title: Configure an Agent private network
 ---
 
-# Configure an Agent private cloud network
+# Configure an Agent private network
 
-This guide turns one OpenWrt device into the first networking node of an Agent private cloud. The result is a small but complete private cloud with a trust domain, Router node identity, Agent registration ingress, and capability routes. You can later add Routers, public IPv6 ingress, or NAT Relay.
+The current entry is **Status → Agent Routing → User mode**. It controls Cloud connection, Router network and Agent services. Identity, trust and protocol settings live under **Developer mode**.
 
-“Agent private cloud network” is a user-facing deployment concept, not a new UCI field. It is built from existing settings: **Agent domain is the private-cloud trust domain, and Router ID is a node identity**.
+## 1. Check node identity
 
-## 1. Open the private-cloud setup entry
+Open **Developer mode → Quick Setup** and check Router ID and Agent domain. Each Router ID must be unique and stable: 1–64 lowercase letters, digits, dots, underscores or hyphens, starting and ending with a letter or digit. Never deploy two cloned devices with the same identity.
 
-Open **Services → Agent Router → Quick Setup**. Quick Setup remains the actual LuCI page name. It configures identity, LAN discovery, and optional Relay. Node, Relay, and Directory roles live on **Router Roles**.
+Agent domain identifies a management domain. The current default is **Router Mesh = Open distributed mesh (zero configuration)**, which can exchange routes across domains. A matching domain name is not the default authorization boundary.
 
-## 2. Create the trust domain and first node
+## 2. Enable the required features
 
-- **Enable Agent routing**: enable it.
-- **Router ID**: enter a stable, unique node ID such as `router-a`. It is 1–64 characters, uses lowercase letters, digits, dots, underscores, or hyphens, and starts and ends with a letter or digit.
-- **Agent domain**: enter the private-cloud trust domain, such as `lab.example`. Routers that join the same private cloud and use same-domain admission share this value.
+Return to **User mode**:
 
-Do not treat Router ID as a temporary hostname. Dynamic Peers, capability origins, and operations records refer to it, so keep it stable after deployment.
+- **Agent services** enables SDK registration and Agent invocation.
+- **Router network** enables Peer transport/listening and LAN discovery/publication. Disable it for an isolated single-node experiment when neighbors are unnecessary.
+- **Cloud connection** is for an installation with a Cloud account, HTTPS ingress and pairing code. Local Agent networking also works without Cloud.
 
-## 3. Choose the private-cloud boundary
+A switch being enabled does not prove that Agents or remote routes exist. Use **Developer mode → Agent APIs & Protocols** for explicit listener and authentication settings.
 
-### One node only
+## 3. Choose neighbor trust
 
-When this is the only Router, leave LAN discovery and Relay disabled. Agents can still register, publish capabilities, and invoke each other through this Router.
+Default Open Mesh automatically admits validated LAN, static-seed and DNSSEC/SVCB Router discoveries without per-peer approval. Discovery does not create Agent capabilities: a Peer must publish leases, and route policy still selects usable routes.
 
-### Several nodes on one LAN
+For individual approval, choose **Managed peer trust** in **Developer mode → Advanced Settings → Router Mesh**, then set **LAN admission → Manual approval** in Quick Setup. Configure both sides intentionally and inspect candidates in **Peer Trust**. Changing LAN admission alone does not turn Open Mesh into managed trust.
 
-- **Discover Agent routers on LAN**: discovers other Nexus Routers.
-- **Publish this router on LAN**: makes this node discoverable.
-- **LAN admission**: start with `Manual approval`; move to `same-domain` or `allowlist` only after identity validation.
+## 4. Distinguish the two Relay paths
 
-DNS-SD creates Router candidates only. It neither discovers individual Agents nor creates capability routes by itself.
+- For Nexus Cloud, including Community with bundled Relay, use pairing and **Cloud connectivity** in **Developer mode → Nexus Cloud**. See [Cloud and Cloud Relay](../guides/cloud-relay.md).
+- For a self-hosted OpenWrt seed, enable **Connect to an OpenWrt Open Mesh seed** in Quick Setup and supply up to four **Open Mesh Directory URLs**. Copy the complete seed-provided endpoint ending in `/v1/open-mesh/assignment`.
 
-### Nodes behind NAT
+These settings are independent; Quick Setup never changes Cloud Relay. Normal clients keep **Router Roles → Hosted services → Node only**.
 
-Enable **Connect through Nexus Directory and Relay** only when an operator supplies a Directory assignment URL and cross-NAT or cross-site access is required. Configure up to four ordered HTTPS failover URLs.
+## 5. Verify registration and invocation
 
-## 4. Save and verify the private-cloud control plane
+Inspect Agents, Neighbor Routers and routes in User mode. Detailed views are **Developer mode → Local Agents / Capability Routes / Overview**. Verify a real registration, lease and invocation. Zero Peer/Relay sessions are normal for an isolated node.
 
-Select **Save & Apply**, then open **Overview**. Confirm at least:
-
-- **Recovery** is Healthy.
-- LAN discovery and Relay match the chosen boundary.
-- No “status is unavailable” banner appears.
-- Zero ARPX sessions and Relay tunnels is normal for a one-node private cloud.
-
-If Recovery is Degraded, inspect Last error under Recovery domains and run [Collect diagnostics](../troubleshooting/diagnostics.md).
-
-## 5. Join the first Agent
-
-Enable Python SDK registration and Agent invocation under **Agent APIs & Protocols**, then publish an Agent with the [Python SDK quickstart](/sdk/quickstart/first-agent).
-
-Completion means:
-
-1. The Agent lease appears under **Local Agents**.
-2. Its intent appears under **Capability Routes**.
-3. A real caller receives a response; a green status card alone is not enough.
-
-## 6. Extend private-cloud node roles
-
-Keep **Node only** for normal nodes. Select **Node + Relay** to carry traffic for other sites, or **Node + Directory** to assign trusted Relays. See [Configure private-cloud node roles](../guides/router-roles.md).
-
-Next, use the [communication mode selector](../communication/model.md) to add LAN Peers, per-Agent IPv6, public ingress, SVCB, or NAT Relay only when needed.
+Local experiments use IPv4/ULA callbacks reachable from the Router. Public Agents have different address prerequisites; see [IPv6](../guides/ipv6.md) and [publishing APIs](../guides/publish-api.md).

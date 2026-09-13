@@ -6,7 +6,7 @@ description: Use only the Python SDK to give two Agents distinct IPv6 addresses 
 
 # Two IPv6 Agents calling each other
 
-This tutorial uses only `nexus-agent-sdk`. It creates Agent A and Agent B on one host, leases a global IPv6 `/128` to each, calls B from A by B's address, and calls A from B by A's address. The call path contains no OpenWrt, Router registration, Directory, AFIB, or Relay.
+This tutorial uses only `nexus-openwrt-agent-sdk`. It creates Agent A and Agent B on one host, leases a global IPv6 `/128` to each, calls B from A by B's address, and calls A from B by A's address. The call path contains no OpenWrt, Router registration, Directory, AFIB, or Relay.
 
 You will see a result like this:
 
@@ -16,6 +16,8 @@ Agent B: [real IPv6 B]:9443
 A → B: demo.hello
 B → A: demo.hello
 ```
+
+Complete [installation](../quickstart/installation.md) first. This exercise uses the Host Alias /64 path; see [Linux setup](../guides/linux-ipv6.md) for other address modes.
 
 ## What you need
 
@@ -34,17 +36,19 @@ A single provider `/128` is not enough. The SDK cannot manufacture more public a
 From the source repository:
 
 ```bash
-cd sdk/nexus-agent-sdk-python
+git clone https://github.com/Nexilume-AI/nexus-agent-sdk-python.git
+cd nexus-agent-sdk-python
 python -m venv .venv
+# Linux: . .venv/bin/activate
+# Windows PowerShell: .venv\Scripts\Activate.ps1
 python -m pip install -e .
 ```
 
-On Linux, start the restricted address service in a separate administrator terminal. Replace the values with the real interface and `/64`:
+On Linux, use the systemd installer. See [Linux IPv6 setup](../guides/linux-ipv6.md) for prerequisites and the 0.46.2 fix:
 
 ```bash
-sudo nexus-agent-addressd \
-  --interface eth0 \
-  --prefix 240e:1234:5678:1200::/64
+nexus-agent ipv6 setup
+nexus-agent ipv6 doctor
 ```
 
 On Windows, one command performs discovery, UAC elevation, service installation, and a temporary `/128` self-test:
@@ -64,7 +68,7 @@ nexus-agent ipv6 doctor
 
 The example deliberately uses cleartext HTTP and no JWT on an isolated lab network. Enable the explicit guard and run it.
 
-Linux/macOS:
+Linux:
 
 ```bash
 export NEXUS_IPV6_LAB=1

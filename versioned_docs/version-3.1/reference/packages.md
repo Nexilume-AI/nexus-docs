@@ -5,14 +5,17 @@ title: 软件包清单
 
 # 软件包清单
 
-| 软件包 | 当前版本 | 用途 |
-| --- | --- | --- |
-| `agentd` | 3.1.0 | 核心配置、状态和路由控制 |
-| `luci-app-agent-router` | 3.1.0 | LuCI 管理界面 |
-| `agent-gw` | 0.21.0 | HTTP/SSE Agent 网关 |
-| `agent-adapter` | 0.5.0 | Agent 协议适配 |
-| `agent-cardd` | 0.2.0 | Agent Card 服务 |
-| `agent-netd` | 0.2.0 | 网络辅助服务 |
-| `nexus-agent-services` | 1.1.0 | 角色、转发和目录服务集合 |
+下表为当前源码 Makefile 的版本与修订号，不代表这些产物已发布。实际安装版本用 `apk list --installed` 核对。角色服务集合是构建配方，安装时使用具体输出包名。
 
-版本来自各软件包的 OpenWrt Makefile。发布新软件包时，应同步更新本页和相应变更说明。
+| Package | Version / revision | Feed recipe |
+| --- | --- | --- |
+| `agentd` | 3.1.0-r25 | `agentd` |
+| `luci-app-agent-router` | 3.1.0-r21 | `luci-app-agent-router` |
+| `agent-gw` | 0.22.0-r26 | `agent-gw` |
+| `agent-adapter` | 0.6.0-r7 | `agent-adapter` |
+| `agent-cardd` | 0.2.0-r2 | `agent-cardd` |
+| `agent-netd` | 0.2.0-r3 | `agent-netd` |
+| `nexus-cloud-connector` | 1.1.0-r42 | `nexus-cloud-connector` |
+| `nexus-agent-roles / nexus-agent-relayd / nexus-agent-directoryd` | 1.2.0-r2 | `nexus-agent-services` |
+| `nexus-agent-router / nexus-agent-router-relay / nexus-agent-router-seed` | 1.0.0-r2 | `nexus-agent-profiles` |
+| `nexus-node-runtime` | 20.20.2-r1 | `nexus-node-runtime` |

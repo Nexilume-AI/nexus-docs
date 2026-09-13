@@ -20,7 +20,7 @@ Windows Host Alias 让同一物理网卡承载多个全球 IPv6 `/128`，每个 
 从软件包安装：
 
 ```powershell
-python -m pip install "nexus-agent-sdk[windows]"
+python -m pip install "./nexus_openwrt_agent_sdk-0.46.2-py3-none-any.whl[windows]"
 nexus-agent ipv6 setup
 ```
 
@@ -79,3 +79,5 @@ python examples/ipv6_agents_call_each_other.py
 - 本机调用成功、远端失败：检查 Windows 防火墙和上游路由。setup 不会永久开放公网端口。
 
 完整调用流程见[两个 IPv6 Agent 互相调用](../tutorials/ipv6-agents-call-each-other.md)。
+
+先完成[安装](../quickstart/installation.md)。源码命令在独立 SDK 仓库根目录执行；wheel 从 GitHub Releases 下载，当前不使用 PyPI 安装本项目。

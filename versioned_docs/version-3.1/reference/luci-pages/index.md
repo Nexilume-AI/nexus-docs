@@ -5,7 +5,7 @@ title: 页面与使用顺序
 
 # LuCI 页面与使用顺序
 
-菜单位于 **状态 → Agent Routing**。面向用户的第一个目标是“配置 Agent 私有云网络”；设备上的实际配置入口仍叫 **Quick Setup**。
+菜单位于 **状态 → Agent Routing**，默认进入 **User mode**。先用 Cloud connection、Router network、Agent services 控制所需功能；下表详细页面均位于 **Developer mode**。Cloud 地址、配对和 Direct/Relay 模式在 **Nexus Cloud** 页，见[连接指南](../../guides/cloud-relay.md)。
 
 | 类型 | 页面 | 何时使用 |
 | --- | --- | --- |
@@ -13,7 +13,7 @@ title: 页面与使用顺序
 | 功能配置 | [Agent APIs & Protocols](protocols.md)、[Advanced Settings](advanced-settings.md)、[Static Peers](static-peers.md)、[Policy RIB](policy-rib.md) | 接入 Agent，配置公网 IPv6、发现、Peer 和策略 |
 | 状态与信任 | [Overview](overview.md)、[Local Agents](local-agents.md)、[Capability Routes](capability-routes.md)、[Neighbors & Discovery](neighbors.md)、[Peer Trust](peer-trust.md) | 验证节点、租约、路由、邻居和信任状态 |
 
-推荐顺序：**Quick Setup → Agent APIs & Protocols → Local Agents → Capability Routes → Overview**。只有扩展到第二个节点时再处理 discovery/Peer；只有公网 `/128`、跨域或跨 NAT 需求时再进入 Advanced Settings。
+推荐顺序：**User mode → Developer mode（按需）→ Local Agents → Capability Routes → 实际调用**。需要修改身份或使用受管信任时再进入 Quick Setup / Advanced Settings。
 
 :::tip 保存与运行状态
 配置页修改后点击 **Save & Apply**。保存成功只表示候选配置通过校验；还应在状态页确认服务、会话、租约和路由已经生效。

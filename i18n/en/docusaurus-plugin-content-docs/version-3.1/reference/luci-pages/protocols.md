@@ -88,3 +88,7 @@ Called Agents should retain event history for at least the Router resume window.
 | Show Python example | Caller/called-Agent sample for the mapping |
 
 The mapping is explicit: `protocol + authority + selector → intent.vN`. Request content never influences routing.
+
+## User mode and LAN SDK
+
+User mode **Agent services** enables registration, invocation, the LAN SDK listener, LAN callbacks and adapter together. The LAN SDK listener defaults to `0.0.0.0:7446`; raw package flag defaults differ from the effective state after enabling this feature. Legacy No JWT LAN listener `7445` is a separate endpoint. Use the enabled listener and its authentication flow, and ensure the Router can reach the host callback address.

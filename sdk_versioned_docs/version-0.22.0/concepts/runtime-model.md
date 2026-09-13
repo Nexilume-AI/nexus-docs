@@ -5,7 +5,7 @@ title: SDK 运行时心智模型
 
 # SDK 运行时心智模型
 
-Python SDK 同时包含调用客户端和可被调用的 Agent Server。高层 `NexusAgent` 把监听、注册、续租、健康检查和退出清理组合起来；底层类仍可单独使用，方便集成已有 Web 服务或运行框架。
+以下原有生命周期说明针对 OpenWrt 模式。Python SDK 同时包含调用客户端和可被调用的 Agent Server。高层 `NexusAgent` 把监听、注册、续租、健康检查和退出清理组合起来；底层类仍可单独使用，方便集成已有 Web 服务或运行框架。
 
 ```mermaid
 flowchart LR
@@ -54,3 +54,15 @@ SDK 核心没有第三方运行时依赖，兼容 Python 3.9+。HTTP 客户端�
 | MCP/A2A 框架 | FastMCP/A2A 集成模块 |
 
 接下来阅读[注册与租约生命周期](registration-lifecycle.md)，再完成[构建可恢复 Agent](../tutorials/resilient-agent.md)。
+
+## 当前运行模式
+
+| 入口 | 行为 |
+| --- | --- |
+| `NexusAgent(runtime="auto")` | 边缘环境走 Router；可信 Cloud launcher 可在导入前选择 hosted |
+| `runtime="openwrt"` | 明确使用边缘注册和租约 |
+| `runtime="hosted"` | 导出 MCP 工具，不启动边缘监听或 Router 注册 |
+| `NexusAgent.public_ipv6(...)` | 独立直接 IPv6 Agent；Host Alias 由本地地址服务管理 |
+| `nexus-computer` | 调用者电脑上的出站 WSS Runtime，不是 Agent listener |
+
+Router 发现失败不会自动降级成 hosted。详见 [Hosted MCP](../guides/hosted-mcp.md) 与 [Computer Runtime](../guides/computer-runtime.md)。

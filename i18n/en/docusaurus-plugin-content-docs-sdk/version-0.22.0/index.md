@@ -2,39 +2,28 @@
 slug: /
 sidebar_position: 1
 title: Python SDK user guide
-description: Learn nexus-agent-sdk from one IPv6 address per Agent to resumable calls.
 ---
 
 # Python SDK user guide
 
-The defining capability of `nexus-agent-sdk` is to make an Agent a directly addressable network node. When a host has a usable IPv6 `/64`, the SDK can give **every Agent its own IPv6 `/128`**, and Agents can call each other by address. The SDK also provides HTTP/SSE servers, Router registration leases, authentication, and FastMCP/A2A integrations. Version **0.22.0** supports Python **3.9+**.
+These docs track SDK 0.46.2 and the Linux fix on main. The distribution is `nexus-openwrt-agent-sdk`; import `nexus_agent`. The core wheel supports Python 3.9+; use Python 3.12 for optional integrations. Existing version URLs remain available and all show current documentation.
 
-## First run: SDK only
+- [Installation](quickstart/installation.md)
+- [Local HTTP/SSE agent](quickstart/local-serving.md)
+- [Connect to OpenWrt](guides/openwrt-agent.md)
+- [Hosted MCP](guides/hosted-mcp.md)
+- [Computer Runtime](guides/computer-runtime.md)
+- [Linux IPv6](guides/linux-ipv6.md)
+- [Windows IPv6](guides/windows-ipv6.md)
+- [Authentication](guides/authentication.md)
+- [API reference](reference/api.md)
 
-Reach an end-to-end result without configuring OpenWrt:
 
-1. [Give every Agent an IPv6 address](quickstart/first-agent.md).
-2. [Make two IPv6 Agents call each other](quickstart/call-first-agent.md).
-3. Work through the full [two-Agent tutorial](tutorials/ipv6-agents-call-each-other.md).
+:::note Documentation version policy
+All version entries show current documentation. Version labels preserve existing URLs; they do not guarantee that every documented feature works on that older software release. Check the software versions and prerequisites stated on each page.
+:::
 
-This Host Alias path requires a genuinely usable global IPv6 `/64` on the host and local `nexus-agent-addressd`. It bypasses Router, Directory, AFIB, and Relay.
 
-## Structured learning path
+## Design an Agent for your application
 
-1. [Why every Agent should have an IP](concepts/one-agent-one-ip.md): separate logical, network, authentication, and capability identity.
-2. [SDK runtime mental model](concepts/runtime-model.md): understand facade, client, server, and lease responsibilities.
-3. [Envelope, identity, and authentication](concepts/envelope-auth.md): understand what callers declare and what servers verify.
-4. [Registration, renewal, and self-healing](concepts/registration-lifecycle.md): after adding OpenWrt, understand route IDs, health withdrawal, and Router-restart recovery.
-5. [Streaming resume design](concepts/streaming-resume.md): understand task, route, request fingerprint, and event cursor.
-6. [From echo to a resumable Agent](tutorials/resilient-agent.md): combine sync, SSE, Router leases, and short-disconnect recovery.
-
-## Choose a deployment layer
-
-| Goal | Start here |
-| --- | --- |
-| Two Agents know each other's address and call directly | [Direct IPv6 Agents](guides/direct-ipv6.md) |
-| OpenWrt centrally manages addresses, discovery, routing, and cross-NAT calls | [Configure an Agent private cloud network](/openwrt/getting-started/quick-setup) |
-| Integrate tool or Agent protocols | [FastMCP](integrations/fastmcp.md), [A2A](integrations/a2a.md) |
-| Look up signatures or diagnose failures | [Core methods](reference/core-methods.md), [error catalog](troubleshooting/error-catalog.md), [diagnostics](troubleshooting/diagnostics.md) |
-
-Runnable examples live in `sdk/nexus-agent-sdk-python/examples/`. The default one-Agent-one-IP entry example is `ipv6_agents_call_each_other.py`.
+Start with the [design path](design/overview.md), run the downloadable example, then add interaction, resources, recovery and usage. See [API coverage](reference/coverage.md) for detailed methods.
