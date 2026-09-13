@@ -1,0 +1,39 @@
+{
+  "version.label": {
+    "message": "Next",
+    "description": "The label for version current"
+  },
+  "sidebar.serverSidebar.category.开始使用": {
+    "message": "Start here"
+  },
+  "sidebar.serverSidebar.category.执行环境": {
+    "message": "Execution environments"
+  },
+  "sidebar.serverSidebar.category.核心资源": {
+    "message": "Core resources"
+  },
+  "sidebar.serverSidebar.category.场景教程": {
+    "message": "Scenario tutorials"
+  },
+  "sidebar.serverSidebar.category.操作与可观测性": {
+    "message": "Operations and observability"
+  },
+  "sidebar.serverSidebar.category.访问与计费": {
+    "message": "Access and billing"
+  },
+  "sidebar.serverSidebar.category.管理": {
+    "message": "Administration"
+  },
+  "sidebar.serverSidebar.category.概念": {
+    "message": "Concepts"
+  },
+  "sidebar.serverSidebar.category.指南": {
+    "message": "Guides"
+  },
+  "sidebar.serverSidebar.category.参考": {
+    "message": "Reference"
+  },
+  "sidebar.serverSidebar.category.排错": {
+    "message": "Troubleshooting"
+  }
+}

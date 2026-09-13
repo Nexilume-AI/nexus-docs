@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="680" viewBox="0 0 1200 680" role="img" aria-labelledby="title desc">
+  <title id="title">Nexus Agent Router LuCI Overview illustration</title>
+  <desc id="desc">Illustration of Overview status cards from the current LuCI implementation.</desc>
+  <rect width="1200" height="680" rx="24" fill="#eef3f9"/>
+  <rect x="22" y="22" width="1156" height="636" rx="18" fill="#fff" stroke="#c8d4e3"/>
+  <rect x="22" y="22" width="1156" height="58" rx="18" fill="#172554"/>
+  <text x="54" y="59" fill="#fff" font-family="sans-serif" font-size="21" font-weight="700">Nexus Agent Routing Plane · Overview</text>
+  <text x="54" y="118" fill="#0f172a" font-family="sans-serif" font-size="27" font-weight="700">Operational status</text>
+  <text x="54" y="147" fill="#64748b" font-family="sans-serif" font-size="15">Control-plane metadata · refreshed every 5 seconds</text>
+  <g font-family="sans-serif">
+    <g transform="translate(54 180)"><rect width="200" height="122" rx="14" fill="#f8fafc" stroke="#d7e0eb"/><text x="20" y="31" fill="#64748b" font-size="14">AFIB routes</text><text x="20" y="78" fill="#15803d" font-size="38" font-weight="700">24</text><text x="20" y="105" fill="#64748b" font-size="13">Capacity 10000</text></g>
+    <g transform="translate(274 180)"><rect width="200" height="122" rx="14" fill="#f8fafc" stroke="#d7e0eb"/><text x="20" y="31" fill="#64748b" font-size="14">ARPX sessions</text><text x="20" y="78" fill="#15803d" font-size="38" font-weight="700">2</text><text x="20" y="105" fill="#64748b" font-size="13">2 configured peers</text></g>
+    <g transform="translate(494 180)"><rect width="200" height="122" rx="14" fill="#f8fafc" stroke="#d7e0eb"/><text x="20" y="31" fill="#64748b" font-size="14">LAN candidates</text><text x="20" y="78" fill="#0f172a" font-size="38" font-weight="700">1</text><text x="20" y="105" fill="#15803d" font-size="13">Discovery enabled</text></g>
+    <g transform="translate(714 180)"><rect width="200" height="122" rx="14" fill="#f8fafc" stroke="#d7e0eb"/><text x="20" y="31" fill="#64748b" font-size="14">Relay tunnels</text><text x="20" y="78" fill="#0f172a" font-size="38" font-weight="700">0</text><text x="20" y="105" fill="#64748b" font-size="13">No active assignment</text></g>
+    <g transform="translate(934 180)"><rect width="200" height="122" rx="14" fill="#f8fafc" stroke="#d7e0eb"/><text x="20" y="31" fill="#64748b" font-size="14">Public Agent IPv6</text><text x="20" y="78" fill="#15803d" font-size="38" font-weight="700">3</text><text x="20" y="105" fill="#64748b" font-size="13">64 address capacity</text></g>
+    <text x="54" y="355" fill="#0f172a" font-size="21" font-weight="700">Control-plane health</text>
+    <g transform="translate(54 380)"><rect width="255" height="128" rx="14" fill="#f0fdf4" stroke="#86efac"/><text x="20" y="32" fill="#64748b" font-size="14">Recovery</text><text x="20" y="75" fill="#15803d" font-size="28" font-weight="700">Healthy</text><text x="20" y="105" fill="#64748b" font-size="13">0 configuration failures</text></g>
+    <g transform="translate(329 380)"><rect width="255" height="128" rx="14" fill="#f8fafc" stroke="#d7e0eb"/><text x="20" y="32" fill="#64748b" font-size="14">Route index</text><text x="20" y="75" fill="#15803d" font-size="28" font-weight="700">Enabled</text><text x="20" y="105" fill="#64748b" font-size="13">Bounded lookup index</text></g>
+    <g transform="translate(604 380)"><rect width="255" height="128" rx="14" fill="#f8fafc" stroke="#d7e0eb"/><text x="20" y="32" fill="#64748b" font-size="14">Policy RIB</text><text x="20" y="75" fill="#0f172a" font-size="28" font-weight="700">8 rules</text><text x="20" y="105" fill="#64748b" font-size="13">Default: allow</text></g>
+    <g transform="translate(879 380)"><rect width="255" height="128" rx="14" fill="#f8fafc" stroke="#d7e0eb"/><text x="20" y="32" fill="#64748b" font-size="14">Route memory</text><text x="20" y="75" fill="#0f172a" font-size="28" font-weight="700">412 KiB</text><text x="20" y="105" fill="#64748b" font-size="13">Bounded AFIB allocation</text></g>
+    <rect x="54" y="548" width="1080" height="74" rx="12" fill="#eff6ff" stroke="#bfdbfe"/><text x="78" y="579" fill="#1e3a8a" font-size="16" font-weight="700">What to check first</text><text x="78" y="605" fill="#334155" font-size="14">Recovery should be Healthy. Then check sessions, routes, and the status card related to your use case.</text>
+  </g>
+</svg>

@@ -1,0 +1,24 @@
+{
+  "version.label": {
+    "message": "Next",
+    "description": "The label for version current"
+  },
+  "sidebar.tokenbankSidebar.category.开始使用": {
+    "message": "Start here"
+  },
+  "sidebar.tokenbankSidebar.category.理解 TokenBank": {
+    "message": "Understand TokenBank"
+  },
+  "sidebar.tokenbankSidebar.category.八个工作台": {
+    "message": "Eight desks"
+  },
+  "sidebar.tokenbankSidebar.category.操作指南": {
+    "message": "Operating guides"
+  },
+  "sidebar.tokenbankSidebar.category.参考": {
+    "message": "Reference"
+  },
+  "sidebar.tokenbankSidebar.category.排错": {
+    "message": "Troubleshooting"
+  }
+}

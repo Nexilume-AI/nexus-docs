@@ -1,0 +1,18 @@
+{
+  "title": {
+    "message": "Nexus Agent Router",
+    "description": "The title in the navbar"
+  },
+  "item.label.OpenWrt": {
+    "message": "OpenWrt",
+    "description": "Navbar item with label OpenWrt"
+  },
+  "item.label.Python SDK": {
+    "message": "Python SDK",
+    "description": "Navbar item with label Python SDK"
+  },
+  "item.label.GitHub": {
+    "message": "GitHub",
+    "description": "Navbar item with label GitHub"
+  }
+}

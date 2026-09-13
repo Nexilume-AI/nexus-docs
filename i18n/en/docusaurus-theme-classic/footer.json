@@ -1,0 +1,30 @@
+{
+  "link.title.Documentation": {
+    "message": "Documentation",
+    "description": "The title of the footer links column with title=Documentation in the footer"
+  },
+  "link.title.Project": {
+    "message": "Project",
+    "description": "The title of the footer links column with title=Project in the footer"
+  },
+  "link.item.label.OpenWrt": {
+    "message": "OpenWrt",
+    "description": "The label of footer link with label=OpenWrt linking to /openwrt/"
+  },
+  "link.item.label.Python SDK": {
+    "message": "Python SDK",
+    "description": "The label of footer link with label=Python SDK linking to /sdk/"
+  },
+  "link.item.label.Diagnostics": {
+    "message": "Diagnostics",
+    "description": "The label of footer link with label=Diagnostics linking to /openwrt/troubleshooting/diagnostics"
+  },
+  "link.item.label.GitHub": {
+    "message": "GitHub",
+    "description": "The label of footer link with label=GitHub linking to https://github.com/Nexilume-AI/nexus-docs"
+  },
+  "copyright": {
+    "message": "Copyright © 2026 Nexus Agent Router",
+    "description": "The footer copyright"
+  }
+}
