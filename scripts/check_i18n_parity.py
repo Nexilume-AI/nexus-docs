@@ -22,19 +22,9 @@ PAIRS = (
         "OpenWrt current",
     ),
     (
-        SITE_ROOT / "versioned_docs/version-3.1",
-        SITE_ROOT / "i18n/en/docusaurus-plugin-content-docs/version-3.1",
-        "OpenWrt 3.1",
-    ),
-    (
         SITE_ROOT / "docs-sdk",
         SITE_ROOT / "i18n/en/docusaurus-plugin-content-docs-sdk/current",
         "SDK current",
-    ),
-    (
-        SITE_ROOT / "sdk_versioned_docs/version-0.22.0",
-        SITE_ROOT / "i18n/en/docusaurus-plugin-content-docs-sdk/version-0.22.0",
-        "SDK 0.22.0",
     ),
 )
 

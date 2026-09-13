@@ -6,7 +6,7 @@ title: Python SDK user guide
 
 # Python SDK user guide
 
-These docs track SDK 0.46.2 and the Linux fix on main. The distribution is `nexus-openwrt-agent-sdk`; import `nexus_agent`. The core wheel supports Python 3.9+; use Python 3.12 for optional integrations. Existing version URLs remain available and all show current documentation.
+These docs track SDK 0.46.2 and the Linux fix on main. The distribution is `nexus-openwrt-agent-sdk`; import `nexus_agent`. The core wheel supports Python 3.9+; use Python 3.12 for optional integrations. This site maintains a single current SDK documentation set.
 
 - [Installation](quickstart/installation.md)
 - [Local HTTP/SSE agent](quickstart/local-serving.md)
@@ -17,11 +17,6 @@ These docs track SDK 0.46.2 and the Linux fix on main. The distribution is `nexu
 - [Windows IPv6](guides/windows-ipv6.md)
 - [Authentication](guides/authentication.md)
 - [API reference](reference/api.md)
-
-
-:::note Documentation version policy
-All version entries show current documentation. Version labels preserve existing URLs; they do not guarantee that every documented feature works on that older software release. Check the software versions and prerequisites stated on each page.
-:::
 
 
 ## Design an Agent for your application

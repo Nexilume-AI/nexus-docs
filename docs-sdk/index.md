@@ -6,7 +6,7 @@ title: Python SDK 用户指南
 
 # Python SDK 用户指南
 
-当前文档对照 SDK 0.46.2 与 main 分支 Linux 修复更新。发行包为 `nexus-openwrt-agent-sdk`，导入名为 `nexus_agent`。核心 wheel 支持 Python 3.9+；建议 Python 3.12 使用可选集成。版本菜单保留已有 URL，各入口均使用最新文档。
+当前文档对照 SDK 0.46.2 与 main 分支 Linux 修复更新。发行包为 `nexus-openwrt-agent-sdk`，导入名为 `nexus_agent`。核心 wheel 支持 Python 3.9+；建议 Python 3.12 使用可选集成。本站仅维护一套最新 SDK 文档。
 
 - [安装](quickstart/installation.md)
 - [本机 HTTP/SSE Agent](quickstart/local-serving.md)
@@ -17,11 +17,6 @@ title: Python SDK 用户指南
 - [Windows IPv6](guides/windows-ipv6.md)
 - [认证](guides/authentication.md)
 - [API 参考](reference/api.md)
-
-
-:::note 文档版本策略
-所有版本入口同步展示最新文档。菜单中的版本号用于保留访问路径，不代表所述功能一定适用于该旧版软件；使用前请核对页面注明的软件版本与前提。
-:::
 
 
 ## 从业务需求设计 Agent

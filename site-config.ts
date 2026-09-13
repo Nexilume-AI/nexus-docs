@@ -57,11 +57,6 @@ const config: Config = {
           sidebarPath: './sidebars-openwrt.ts',
           showLastUpdateAuthor: false,
           showLastUpdateTime: false,
-          lastVersion: '3.1',
-          versions: {
-            current: {label: 'Next', banner: 'unreleased'},
-            '3.1': {label: '3.1', banner: 'none'},
-          },
         },
         blog: false,
         theme: {customCss: './src/css/custom.css'},
@@ -79,11 +74,6 @@ const config: Config = {
         sidebarPath: './sidebars-sdk.ts',
         showLastUpdateAuthor: false,
         showLastUpdateTime: false,
-        lastVersion: 'current',
-        versions: {
-          current: {label: 'Current (0.46.x)', banner: 'unreleased'},
-          '0.22.0': {label: '0.22.0', banner: 'none'},
-        },
       },
     ],
     ['@cmfcmf/docusaurus-search-local', searchOptions],
@@ -95,9 +85,7 @@ const config: Config = {
       title: 'Nexus',
       items: [
         {type: 'docSidebar', sidebarId: 'openwrtSidebar', label: 'OpenWrt', position: 'left'},
-        {type: 'docsVersionDropdown', position: 'left'},
         {type: 'docSidebar', docsPluginId: 'sdk', sidebarId: 'sdkSidebar', label: 'Python SDK', position: 'left'},
-        {type: 'docsVersionDropdown', docsPluginId: 'sdk', position: 'left'},
         {type: 'localeDropdown', position: 'right'},
         {href: 'https://github.com/Nexilume-AI/nexus-docs', label: 'GitHub', position: 'right'},
       ],
