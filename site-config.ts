@@ -87,7 +87,21 @@ const config: Config = {
         {type: 'docSidebar', sidebarId: 'openwrtSidebar', label: 'OpenWrt', position: 'left'},
         {type: 'docSidebar', docsPluginId: 'sdk', sidebarId: 'sdkSidebar', label: 'Python SDK', position: 'left'},
         {type: 'localeDropdown', position: 'right'},
-        {href: 'https://github.com/Nexilume-AI/nexus-docs', label: 'GitHub', position: 'right'},
+        {
+          type: 'dropdown',
+          label: 'GitHub',
+          position: 'right',
+          items: [
+            'nexus-cloud-community',
+            'nexus-mobile',
+            'nexus-docs',
+            'nexus-agent-sdk-python',
+            'nexus-openwrt',
+          ].map((repository) => ({
+            label: repository,
+            href: `https://github.com/Nexilume-AI/${repository}`,
+          })),
+        },
       ],
     },
     footer: {
