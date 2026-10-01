@@ -24,6 +24,8 @@ The build writes `build/`, includes both languages and all four products, and fa
 
 ## Hosting
 
+The official GitHub Pages site is https://nexilume-ai.github.io/nexus-docs/ (Simplified Chinese), with English at https://nexilume-ai.github.io/nexus-docs/en/.
+
 Set `DOCS_URL` to the HTTPS origin and `DOCS_BASE_URL` to `/` for a root site or `/nexus-docs/` for a project site, then run `npm run build`. Upload only `build/` to a static host.
 
 The Pages workflow is manual, restricted to the default branch, and uses the `github-pages` environment. Enable Pages with GitHub Actions in repository settings before running it. Set repository variables `DOCS_URL` and `DOCS_BASE_URL` for a custom destination. Pull requests build without deployment privileges.

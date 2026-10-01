@@ -6,7 +6,7 @@
 
 [![Python SDK on PyPI](https://img.shields.io/pypi/v/nexilume.svg)](https://pypi.org/project/nexilume/)
 [![License: Nexus Community](https://img.shields.io/badge/License-Nexus_Community-17251d.svg)](LICENSE)
-[![Documentation](https://img.shields.io/badge/Read-the_docs-b8ef73.svg)](README_GUIDE.md)
+[![Documentation](https://img.shields.io/badge/Read-the_docs-b8ef73.svg)](https://nexilume-ai.github.io/nexus-docs/en/)
 [![Cite this software](https://img.shields.io/badge/Cite-this_software-e8e9e4.svg)](#citation)
 [![Repository checks](https://github.com/Nexilume-AI/nexus-docs/actions/workflows/ci.yml/badge.svg)](https://github.com/Nexilume-AI/nexus-docs/actions/workflows/ci.yml)
 
@@ -87,7 +87,7 @@ The guides cover both English and Simplified Chinese. Historical versions are ke
 | Refresh SDK API references | [Maintenance](README_GUIDE.md#sdk-documentation-maintenance) |
 | Follow contribution rules | [Contributing](CONTRIBUTING.md) |
 
-There is no assumed public documentation domain in these links. Deployments configure `DOCS_URL` and `DOCS_BASE_URL`; repository paths remain usable without a live website.
+Read the published site in [English](https://nexilume-ai.github.io/nexus-docs/en/) or [Simplified Chinese](https://nexilume-ai.github.io/nexus-docs/). Self-hosted deployments configure `DOCS_URL` and `DOCS_BASE_URL`; repository paths remain usable without a live website.
 
 ## Ecosystem
 

@@ -28,10 +28,10 @@
   },
   "overrides": {
     "copy-webpack-plugin": {
-      "serialize-javascript": "7.1.1"
+      "serialize-javascript": "7.1.2"
     },
     "css-minimizer-webpack-plugin": {
-      "serialize-javascript": "7.1.1"
+      "serialize-javascript": "7.1.2"
     },
     "express": {
       "qs": "6.16.0"

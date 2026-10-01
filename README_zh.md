@@ -6,7 +6,7 @@
 
 [![Python SDK on PyPI](https://img.shields.io/pypi/v/nexilume.svg)](https://pypi.org/project/nexilume/)
 [![License: Nexus Community](https://img.shields.io/badge/License-Nexus_Community-17251d.svg)](LICENSE)
-[![文档](https://img.shields.io/badge/Read-the_docs-b8ef73.svg)](README_GUIDE.md)
+[![文档](https://img.shields.io/badge/Read-the_docs-b8ef73.svg)](https://nexilume-ai.github.io/nexus-docs/)
 [![引用项目](https://img.shields.io/badge/Cite-this_software-e8e9e4.svg)](#引用)
 [![Repository checks](https://github.com/Nexilume-AI/nexus-docs/actions/workflows/ci.yml/badge.svg)](https://github.com/Nexilume-AI/nexus-docs/actions/workflows/ci.yml)
 
@@ -19,6 +19,8 @@
 </div>
 
 Nexus Server、OpenWrt、Python SDK 与 TokenBank 的中英文用户指南、教程和参考。
+
+在线阅读：[简体中文](https://nexilume-ai.github.io/nexus-docs/) · [English](https://nexilume-ai.github.io/nexus-docs/en/)。
 
 ![Nexus Documentation 流程示意图](docs/media/overview.svg)
 
