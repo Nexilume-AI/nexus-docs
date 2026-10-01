@@ -1,10 +1,62 @@
+<div align="center">
+
 # Nexus Documentation
 
-Public user documentation for **Nexus Server, TokenBank, OpenWrt and the Python SDK**, in Simplified Chinese and English. This repository contains documentation, website code and downloadable examples, not the Server or TokenBank application source.
+**Choose a goal. Follow a guide. Build with Nexus.**
 
-## Run locally
+[![License: Apache-2.0](https://img.shields.io/badge/License-Apache--2.0-17251d.svg)](LICENSE)
+[![Documentation](https://img.shields.io/badge/Read-the_docs-b8ef73.svg)](README_GUIDE.md)
+[![Cite this software](https://img.shields.io/badge/Cite-this_software-e8e9e4.svg)](#citation)
+[![Repository checks](https://github.com/Nexilume-AI/nexus-docs/actions/workflows/ci.yml/badge.svg)](https://github.com/Nexilume-AI/nexus-docs/actions/workflows/ci.yml)
 
-Use Node.js 22 LTS and Python 3.12+. From a fresh checkout:
+`Guides` · `English / 中文` · `Docusaurus`
+
+**English** · [简体中文](README_zh.md)
+
+[Highlights](#highlights) · [Quick start](#quick-start) · [Documentation](#documentation) · [Ecosystem](#ecosystem) · [Contributing](#contributing) · [Citation](#citation)
+
+</div>
+
+User guides, tutorials and reference material for Nexus Server, OpenWrt, the Python SDK and TokenBank, in English and Simplified Chinese.
+
+![Nexus Documentation: illustrated workflow](docs/media/overview.svg)
+
+*Workflow illustration, not a product screenshot. Connections require the setup and authorization described below.*
+
+## Product walkthrough
+
+**Live Enterprise capture · October 1, 2026.** Follow a Python Agent from an inline
+question to a private Markdown output. The Docker-hosted example uses deterministic
+logic, not an external model; no personal device is attached.
+
+![Private Display keeps the Agent question in the conversation](docs/media/enterprise-inline-question.jpg)
+
+<details>
+<summary>Preview the output</summary>
+
+![Run Files previews the generated launch checklist](docs/media/enterprise-file-preview.jpg)
+
+</details>
+
+[Capture notes and reproducible source](docs/media/capture-notes.md). These are
+real screenshots, not mockups. Enterprise menus and commercial features are not
+included in Community merely because their documentation appears here.
+
+## Highlights
+
+| Reader | Start here |
+| --- | --- |
+| **Cloud operator** | [Server guides](docs-server) |
+| **Agent developer** | [Python SDK guides](docs-sdk) |
+| **Edge operator** | [OpenWrt guides](docs-openwrt) |
+| **TokenBank user** | [TokenBank documentation](docs-tokenbank) |
+| **Documentation contributor** | [Build and hosting reference](README_GUIDE.md) |
+
+This repository contains documentation and examples, **not** the Server or TokenBank application source. Enterprise documentation does not make Enterprise implementation part of Community.
+
+## Quick start
+
+To build the documentation site locally, use Node.js 22 LTS and Python 3.12+:
 
 ```sh
 npm ci --ignore-scripts
@@ -12,36 +64,53 @@ npm run check:docs
 npm start
 ```
 
-Open the address printed by Docusaurus. Use `npm run start:en` for English.
+Open the address printed by Docusaurus. Use `npm run start:en` for English. No Cloud account, database or private source checkout is required for a normal docs build.
 
-```sh
-npm run check:security
-npm run build
-npm run serve
+## Documentation
+
+The guides cover both English and Simplified Chinese. Historical versions are kept separately: check the version of the installed component before applying a command.
+
+| Task | Where to go |
+| --- | --- |
+| Read source guides | Server / SDK / OpenWrt / TokenBank links above |
+| Build the static site | [Local build](README_GUIDE.md#run-locally) |
+| Publish behind your own domain | [Hosting](README_GUIDE.md#hosting) |
+| Refresh SDK API references | [Maintenance](README_GUIDE.md#sdk-documentation-maintenance) |
+| Follow contribution rules | [Contributing](CONTRIBUTING.md) |
+
+There is no assumed public documentation domain in these links. Deployments configure `DOCS_URL` and `DOCS_BASE_URL`; repository paths remain usable without a live website.
+
+## Ecosystem
+
+| Project | Role | Install separately? |
+| --- | --- | --- |
+| [Cloud Community](https://github.com/Nexilume-AI/nexus-cloud-community) | Server, Web Console and bundled Cloud Relay | Main workspace |
+| [Python SDK](https://github.com/Nexilume-AI/nexus-agent-sdk-python) | Agent applications and outbound Computer Runtime | Yes |
+| [OpenWrt](https://github.com/Nexilume-AI/nexus-openwrt) | Edge registration and capability routing | Optional |
+| [Mobile](https://github.com/Nexilume-AI/nexus-mobile) | Authorized Android device integration | Optional |
+| [Documentation](https://github.com/Nexilume-AI/nexus-docs) | User guides and reference | Read online or build locally |
+
+Repository access, release availability and compatibility determine which integrations you can install. Cloud installation does not install device runtimes.
+
+## Contributing
+
+Start with [CONTRIBUTING.md](CONTRIBUTING.md). Small reproducible fixes, clearer tutorials, translations and sanitized examples are welcome. Use [Issues](https://github.com/Nexilume-AI/nexus-docs/issues) for reproducible bugs; include versions and redacted diagnostics, never credentials or private files.
+
+Follow [SECURITY.md](SECURITY.md) for security reports. Release checks and CI are not a guarantee of production readiness on every platform.
+
+## Citation
+
+If this software helps your work, cite the repository and record the exact release or commit you used. [CITATION.cff](CITATION.cff) provides machine-readable software metadata; this is a **software citation**, not a claim of a peer-reviewed paper or DOI.
+
+```bibtex
+@misc{nexus_docs,
+  author       = {{Nexus contributors}},
+  title        = {Nexus Documentation},
+  howpublished = {\url{https://github.com/Nexilume-AI/nexus-docs}},
+  note         = {Software; specify the release or commit used}
+}
 ```
-
-The build writes `build/`, includes both languages and all four products, and fails on broken links. No database, Cloud account, tokens or private source checkout is needed.
-
-## Hosting
-
-Set `DOCS_URL` to the HTTPS origin and `DOCS_BASE_URL` to `/` for a root site or `/nexus-docs/` for a project site, then run `npm run build`. Upload only `build/` to a static host.
-
-The Pages workflow is manual, restricted to the default branch, and uses the `github-pages` environment. Enable Pages with GitHub Actions in repository settings before running it. Set repository variables `DOCS_URL` and `DOCS_BASE_URL` for a custom destination. Pull requests build without deployment privileges.
-
-## SDK documentation maintenance
-
-Normal builds do not require SDK source. To regenerate/check API references, clone the public SDK as `sdk-source`, check out the reviewed SDK commit, install `requirements-docs.txt`, and run `npm run check:api`. Alternatively set `NEXUS_SDK_SOURCE` to its `src` directory. For the runnable design test install that SDK with its `fastmcp` extra and run `npm run check:sdk-design`.
-
-Current docs describe published SDK 0.46.2 plus the Linux fix on main. Release-package availability and local test scope are stated on the relevant pages. OpenWrt and Python SDK each have one current documentation set, with no version selector or duplicate snapshots.
-
-## Contribute and report problems
-
-See [CONTRIBUTING.md](CONTRIBUTING.md), [SECURITY.md](SECURITY.md), and [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md). Do not include credentials or personal deployment data in issues.
 
 ## License
 
-[Apache-2.0](LICENSE), carried forward from the source documentation tree. Third-party components retain their own licenses. Publishing documentation does not license separately distributed proprietary application code or grant rights to third-party trademarks.
-
-## Single current documentation
-
-OpenWrt and Python SDK use only `/openwrt` and `/sdk`. Edit current Chinese and English files; no snapshot synchronization or version generation is needed. Software compatibility requirements remain stated within each guide.
+Nexus-authored source is distributed under [Apache-2.0](LICENSE). Third-party components retain their own licenses and notices. Documentation does not grant rights to separately distributed Enterprise implementation.
