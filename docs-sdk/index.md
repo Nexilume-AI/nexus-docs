@@ -6,7 +6,7 @@ title: Python SDK 用户指南
 
 # Python SDK 用户指南
 
-当前文档对照 SDK 0.46.2 与 main 分支 Linux 修复更新。发行包为 `nexus-openwrt-agent-sdk`，导入名为 `nexus_agent`。核心 wheel 支持 Python 3.9+；建议 Python 3.12 使用可选集成。本站仅维护一套最新 SDK 文档。
+安装与升级说明对应已发布的 SDK 0.47.0。发行包为 [`nexilume`](https://pypi.org/project/nexilume/)，导入名为 `nexus_agent`；自动生成的 API 参考以其注明的源码为准。核心 wheel 支持 Python 3.9+；建议 Python 3.12 使用可选集成。本站仅维护一套最新 SDK 文档。
 
 - [安装](quickstart/installation.md)
 - [本机 HTTP/SSE Agent](quickstart/local-serving.md)

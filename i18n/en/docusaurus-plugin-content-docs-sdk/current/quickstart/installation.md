@@ -5,6 +5,8 @@ title: Install the Python SDK
 
 # Install the Python SDK
 
+The distribution is **`nexilume`**, published on [PyPI](https://pypi.org/project/nexilume/0.47.0/). Imports remain `nexus_agent`; commands remain `nexus-computer` and `nexus-agent`. The PyPI project `nexus-agent-sdk` is unrelated.
+
 Use **Python 3.12** for the easiest path through the optional integrations. The dependency-free core wheel supports Python 3.9+. Building from source requires Python 3.10+; optional dependencies can require newer Python versions.
 
 ### 1. Create a virtual environment
@@ -25,21 +27,21 @@ py -3.12 -m venv .venv
 
 On Ubuntu, install `python3-venv` if creating the environment reports that `ensurepip` is unavailable.
 
-### 2. Install a release wheel
+### 2. Install from PyPI
 
-Download the `.whl` file from [GitHub Releases](https://github.com/Nexilume-AI/nexus-agent-sdk-python/releases), then install it in your environment. For the published 0.46.2 release:
+Install the published 0.47.0 release:
 
 ```sh
-python -m pip install ./nexus_openwrt_agent_sdk-0.46.2-py3-none-any.whl
+python -m pip install nexilume==0.47.0
 python -c "import nexus_agent; print(nexus_agent.__version__)"
 ```
 
-Replace the filename with the wheel you downloaded. This project currently distributes installation packages through GitHub Releases; **PyPI publication is not yet available**. The PyPI package named `nexus-openwrt-agent-sdk` belongs to a different project.
+Use `python -m pip install --upgrade nexilume` for the latest core SDK.
 
-To include optional features, add extras to the local wheel path:
+Install the extras you need:
 
 ```sh
-python -m pip install "./nexus_openwrt_agent_sdk-0.46.2-py3-none-any.whl[computer,browser,fastmcp,a2a]"
+python -m pip install "nexilume[computer,browser,fastmcp,a2a]==0.47.0"
 ```
 
 | Extra | Enables |
@@ -49,6 +51,13 @@ python -m pip install "./nexus_openwrt_agent_sdk-0.46.2-py3-none-any.whl[compute
 | `fastmcp` | Hosted MCP tools and the FastMCP bridge |
 | `a2a` | Integration with the official A2A SDK |
 | `fastmcp-tasks` | Optional FastMCP Tasks integration |
+| `windows` | Windows service helpers (Windows only) |
+
+### Migrate from the older wheel
+
+If the same environment contains `nexus-openwrt-agent-sdk`, run `python -m pip uninstall nexus-openwrt-agent-sdk` before installing `nexilume`. Both distributions share the import directory; do not keep both installed. Keep Computer configuration and device keys. Restart existing Runtime processes after installation; see [upgrading](../guides/upgrade.md). Re-pairing is not required.
+
+For offline installation, download the wheel from [PyPI release files](https://pypi.org/project/nexilume/0.47.0/#files) and run `python -m pip install ./nexilume-0.47.0-py3-none-any.whl`. Prepare optional dependencies separately.
 
 ### Install from source instead
 

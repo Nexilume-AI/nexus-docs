@@ -6,7 +6,7 @@ description: Use only the Python SDK to give two Agents distinct IPv6 addresses 
 
 # Two IPv6 Agents calling each other
 
-This tutorial uses only `nexus-openwrt-agent-sdk`. It creates Agent A and Agent B on one host, leases a global IPv6 `/128` to each, calls B from A by B's address, and calls A from B by A's address. The call path contains no OpenWrt, Router registration, Directory, AFIB, or Relay.
+This tutorial uses only `nexilume`. It creates Agent A and Agent B on one host, leases a global IPv6 `/128` to each, calls B from A by B's address, and calls A from B by A's address. The call path contains no OpenWrt, Router registration, Directory, AFIB, or Relay.
 
 You will see a result like this:
 

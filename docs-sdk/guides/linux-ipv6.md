@@ -35,7 +35,7 @@ sh install-linux.sh --wheel /path/to/downloaded.whl --install-only
 
 ## 已发布 0.46.2 的服务组修复
 
-0.46.2 wheel 生成的服务可能因缺少主组而无法设置 Unix socket 权限。当前源码已增加 `Group=nexus-agent`，但尚未发布新 Release。已运行 setup 并创建服务和组的安装，可加 systemd override：
+0.46.2 wheel 生成的服务可能因缺少主组而无法设置 Unix socket 权限。0.46.3 及后续发行版（包括 nexilume 0.47.0）已为新生成的服务增加 `Group=nexus-agent`。已运行 setup 并创建服务和组的安装，可加 systemd override：
 
 ```sh
 sudo systemctl edit nexus-agent-addressd.service

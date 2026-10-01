@@ -1,4 +1,4 @@
-"""Safe, read-only diagnostics for nexus-agent-sdk.
+"""Safe, read-only diagnostics for nexilume (imported as nexus_agent).
 
 The script never prints credential values. Network access is opt-in with --connect
 and performs a TCP connection only.
@@ -38,7 +38,7 @@ def router_target(value: str) -> tuple[str, int]:
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Read-only nexus-agent-sdk diagnostics")
+    parser = argparse.ArgumentParser(description="Read-only nexilume SDK diagnostics")
     parser.add_argument("--router", help="Router URL; defaults to NEXUS_ROUTER_URL")
     parser.add_argument("--connect", action="store_true", help="Perform a TCP-only connectivity check")
     parser.add_argument("--timeout", type=float, default=3.0, help="TCP timeout in seconds (default: 3)")

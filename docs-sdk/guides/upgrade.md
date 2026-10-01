@@ -5,13 +5,25 @@ title: 如何升级 SDK
 
 # 如何升级 Python SDK
 
-当前仓库没有声明公共 PyPI 发布地址。升级时应使用发布方提供的受信任制品，或从已审核的仓库 tag 安装。
+SDK 0.47.0 以 `nexilume` 发布到 [PyPI](https://pypi.org/project/nexilume/0.47.0/)，导入名称与 CLI 名称保持不变。
+
+## 从 PyPI 升级
+
+激活原来安装 SDK 的环境。若安装过旧包，先执行 `python -m pip uninstall nexus-openwrt-agent-sdk`，再安装新包。保留 Computer 配置和设备密钥，无需重新配对。
+
+```sh
+python -m pip install --upgrade "nexilume[computer,browser]==0.47.0"
+nexus-computer restart
+nexus-computer status
+```
+
+仅使用核心 SDK 时执行 `python -m pip install --upgrade nexilume`；Hosted MCP 使用 `nexilume[fastmcp]`。升级后，正在运行的 Agent 进程也需要重启。
 
 ## 升级前
 
 ```bash
 python -c "import nexus_agent; print(nexus_agent.__version__)"
-python -m pip freeze | grep -E 'nexus-agent|fastmcp|a2a-sdk|pywin32'
+python -m pip freeze | grep -E 'nexilume|nexus-agent|fastmcp|a2a-sdk|pywin32'
 ```
 
 锁定应用依赖并运行现有测试。SDK 的基础包没有第三方运行时依赖，但可选集成有独立版本范围。
@@ -48,4 +60,4 @@ python -m pytest tests -q
 
 ## GitHub Releases
 
-从[公开发行仓库](https://github.com/Nexilume-AI/nexus-agent-sdk-python/releases)下载 wheel，并按[安装指南](../quickstart/installation.md)升级。当前公开安装包为 0.46.2；main 包含尚未随新 Release 发布的 Linux 服务组修复。更新源码不会自动更新已安装的 wheel、addressd 机器运行时或 Cloud 容器。
+旧版 wheel 保留在 [GitHub Releases](https://github.com/Nexilume-AI/nexus-agent-sdk-python/releases)。当前 0.47.0 从 PyPI 安装；Linux 服务组修复已包含在 0.46.3 及后续版本中。更新 Python 包不会自动替换已部署的 addressd 服务或 Cloud 容器；按各自部署流程更新并验证。

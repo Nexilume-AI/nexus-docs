@@ -34,4 +34,4 @@ agent.run()
 
 完整服务端和客户端示例见 `examples/a2a_agent.py`、`a2a_call.py` 与 `a2a_stream.py`。
 
-先完成[安装](../quickstart/installation.md)。源码命令在独立 SDK 仓库根目录执行；wheel 从 GitHub Releases 下载，当前不使用 PyPI 安装本项目。
+先完成[安装](../quickstart/installation.md)，从 PyPI 安装 nexilume 及对应扩展。源码示例命令在独立 SDK 仓库根目录执行。

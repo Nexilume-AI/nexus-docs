@@ -4,7 +4,8 @@
 
 **Choose a goal. Follow a guide. Build with Nexus.**
 
-[![License: Apache-2.0](https://img.shields.io/badge/License-Apache--2.0-17251d.svg)](LICENSE)
+[![Python SDK on PyPI](https://img.shields.io/pypi/v/nexilume.svg)](https://pypi.org/project/nexilume/)
+[![License: Nexus Community](https://img.shields.io/badge/License-Nexus_Community-17251d.svg)](LICENSE)
 [![Documentation](https://img.shields.io/badge/Read-the_docs-b8ef73.svg)](README_GUIDE.md)
 [![Cite this software](https://img.shields.io/badge/Cite-this_software-e8e9e4.svg)](#citation)
 [![Repository checks](https://github.com/Nexilume-AI/nexus-docs/actions/workflows/ci.yml/badge.svg)](https://github.com/Nexilume-AI/nexus-docs/actions/workflows/ci.yml)
@@ -66,6 +67,14 @@ npm start
 
 Open the address printed by Docusaurus. Use `npm run start:en` for English. No Cloud account, database or private source checkout is required for a normal docs build.
 
+The Python SDK is published as [`nexilume`](https://pypi.org/project/nexilume/); import it as `nexus_agent`. Install the core SDK:
+
+```sh
+python -m pip install --upgrade nexilume
+```
+
+See [SDK installation](docs-sdk/quickstart/installation.md) for extras, migration from the older wheel and Computer setup.
+
 ## Documentation
 
 The guides cover both English and Simplified Chinese. Historical versions are kept separately: check the version of the installed component before applying a command.
@@ -113,4 +122,8 @@ If this software helps your work, cite the repository and record the exact relea
 
 ## License
 
-Nexus-authored source is distributed under [Apache-2.0](LICENSE). Third-party components retain their own licenses and notices. Documentation does not grant rights to separately distributed Enterprise implementation.
+Nexus-authored source is distributed under [Nexus Community License 1.0](LICENSE). Third-party components retain their own licenses and notices. Documentation does not grant rights to separately distributed Enterprise implementation.
+
+### Licensing conditions / 许可条件
+
+Source-available, not unmodified Apache-2.0 or OSI-approved open source. Multi-tenant service operation and removal of existing Nexus UI branding require prior written authorization. Earlier Apache-2.0 grants and third-party licenses remain unchanged. Contributions require explicit agreement permitting commercial use and future relicensing. 许可说明：[LICENSING.md](LICENSING.md)。授权联系：**cary.nexilume@outlook.com**。

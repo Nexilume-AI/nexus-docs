@@ -20,7 +20,7 @@ Windows Host Alias places several global IPv6 `/128` addresses on one physical i
 From the package:
 
 ```powershell
-python -m pip install "./nexus_openwrt_agent_sdk-0.46.2-py3-none-any.whl[windows]"
+python -m pip install "nexilume[windows]==0.47.0"
 nexus-agent ipv6 setup
 ```
 
@@ -80,4 +80,4 @@ The machine-owned runtime is under `C:\ProgramData\Nexus\addressd-runtimes`. The
 
 See [Two IPv6 Agents calling each other](../tutorials/ipv6-agents-call-each-other.md) for the complete call path.
 
-Complete [installation](../quickstart/installation.md) first. Source commands run at the standalone SDK repository root; download wheels from GitHub Releases rather than installing this project from PyPI.
+Complete [installation](../quickstart/installation.md) first, using nexilume and the relevant extras from PyPI. Source examples run at the standalone SDK repository root.

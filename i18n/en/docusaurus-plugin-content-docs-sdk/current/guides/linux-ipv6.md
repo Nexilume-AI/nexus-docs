@@ -24,7 +24,7 @@ sh install-linux.sh --wheel /path/to/downloaded.whl --install-only
 
 Omit `--install-only` to continue into IPv6 setup. Run the installer as your normal user, without `sudo`.
 
-**Known issue in the published 0.46.2 wheel:** the generated Linux address service can fail to assign its Unix socket group. The fix adds `Group=nexus-agent` to the systemd service and has passed local validation, but has not yet shipped in a new release. For an affected installation, add this service override:
+**Known issue in the published 0.46.2 wheel:** the generated Linux address service can fail to assign its Unix socket group. Version 0.46.3 and later releases, including nexilume 0.47.0, add `Group=nexus-agent` to newly generated systemd services. For an affected installation, add this service override:
 
 ```sh
 sudo systemctl edit nexus-agent-addressd.service

@@ -4,7 +4,8 @@
 
 **Choose a goal. Follow a guide. Build with Nexus.**
 
-[![License: Apache-2.0](https://img.shields.io/badge/License-Apache--2.0-17251d.svg)](LICENSE)
+[![Python SDK on PyPI](https://img.shields.io/pypi/v/nexilume.svg)](https://pypi.org/project/nexilume/)
+[![License: Nexus Community](https://img.shields.io/badge/License-Nexus_Community-17251d.svg)](LICENSE)
 [![文档](https://img.shields.io/badge/Read-the_docs-b8ef73.svg)](README_GUIDE.md)
 [![引用项目](https://img.shields.io/badge/Cite-this_software-e8e9e4.svg)](#引用)
 [![Repository checks](https://github.com/Nexilume-AI/nexus-docs/actions/workflows/ci.yml/badge.svg)](https://github.com/Nexilume-AI/nexus-docs/actions/workflows/ci.yml)
@@ -65,6 +66,14 @@ npm start
 
 打开 Docusaurus 打印的地址。英文站使用 `npm run start:en`。普通构建不需要 Cloud 账号、数据库或私有源码。
 
+Python SDK 已以 [`nexilume`](https://pypi.org/project/nexilume/) 发布，导入名保持 `nexus_agent`。安装核心 SDK：
+
+```sh
+python -m pip install --upgrade nexilume
+```
+
+安装 extras、旧包迁移及 Computer 连接见[SDK 安装指南](docs-sdk/quickstart/installation.md)。
+
 ## 文档维护
 
 - 根据实际安装的组件版本选择文档，不混用历史快照。
@@ -107,4 +116,8 @@ npm start
 
 ## 许可证
 
-Nexus 自有代码采用 [Apache-2.0](LICENSE)。第三方组件保留各自许可证与声明；公开文档不授予独立企业版实现的使用权。
+Nexus 自有代码采用 [Nexus Community License 1.0](LICENSE)。第三方组件保留各自许可证与声明；公开文档不授予独立企业版实现的使用权。
+
+### Licensing conditions / 许可条件
+
+Source-available, not unmodified Apache-2.0 or OSI-approved open source. Multi-tenant service operation and removal of existing Nexus UI branding require prior written authorization. Earlier Apache-2.0 grants and third-party licenses remain unchanged. Contributions require explicit agreement permitting commercial use and future relicensing. 许可说明：[LICENSING.md](LICENSING.md)。授权联系：**cary.nexilume@outlook.com**。

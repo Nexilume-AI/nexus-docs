@@ -5,7 +5,7 @@ title: 安装 Python SDK
 
 # 安装 Python SDK
 
-发行包名称为 **`nexus-openwrt-agent-sdk`**，Python 导入保持 `nexus_agent`。目前从 [GitHub Releases](https://github.com/Nexilume-AI/nexus-agent-sdk-python/releases) 下载 wheel；尚未发布到 PyPI。PyPI 的 `nexus-openwrt-agent-sdk` 属于其他项目。
+发行包名称为 **`nexilume`**，已发布到 [PyPI](https://pypi.org/project/nexilume/0.47.0/)。Python 导入保持 `nexus_agent`，命令保持 `nexus-computer` 和 `nexus-agent`。PyPI 上的 `nexus-agent-sdk` 属于其他项目。
 
 推荐使用 Python 3.12 完成全部入门流程。无第三方运行依赖的核心 wheel 支持 Python 3.9+；源码构建需要 Python 3.10+，可选扩展还受各自依赖的 Python 与平台要求约束。
 
@@ -27,17 +27,17 @@ py -3.12 -m venv .venv
 
 Ubuntu 若提示缺少 `ensurepip`，先安装系统的 `python3-venv`。
 
-## 安装下载的 wheel
+## 从 PyPI 安装
 
 ```sh
-python -m pip install ./nexus_openwrt_agent_sdk-0.46.2-py3-none-any.whl
+python -m pip install nexilume==0.47.0
 python -c "import nexus_agent; print(nexus_agent.__version__)"
 ```
 
-将文件名替换成实际下载文件。需要可选功能时，在本地 wheel 路径后添加 extras：
+使用 `python -m pip install --upgrade nexilume` 获取最新核心 SDK。需要可选功能时，添加对应 extras：
 
 ```sh
-python -m pip install "./nexus_openwrt_agent_sdk-0.46.2-py3-none-any.whl[computer,browser,fastmcp,a2a]"
+python -m pip install "nexilume[computer,browser,fastmcp,a2a]==0.47.0"
 ```
 
 | 扩展 | 功能 |
@@ -47,6 +47,13 @@ python -m pip install "./nexus_openwrt_agent_sdk-0.46.2-py3-none-any.whl[compute
 | `fastmcp` | Hosted MCP 与 FastMCP bridge |
 | `a2a` | 官方 A2A SDK 集成 |
 | `fastmcp-tasks` | 可选 FastMCP Tasks 集成 |
+| `windows` | Windows 服务辅助功能，仅用于 Windows |
+
+## 从旧 wheel 迁移
+
+如果同一环境安装过 `nexus-openwrt-agent-sdk`，先执行 `python -m pip uninstall nexus-openwrt-agent-sdk`，再安装 `nexilume`。两者共用导入目录，不能同时保留。保留 Computer 配置与设备密钥；迁移不需要重新配对。完成安装后重启已有 Runtime，详见[升级指南](../guides/upgrade.md)。
+
+离线安装可从 [PyPI 文件列表](https://pypi.org/project/nexilume/0.47.0/#files)下载 wheel，然后执行 `python -m pip install ./nexilume-0.47.0-py3-none-any.whl`。可选依赖也必须提前准备。
 
 ## 从源码安装与运行示例
 

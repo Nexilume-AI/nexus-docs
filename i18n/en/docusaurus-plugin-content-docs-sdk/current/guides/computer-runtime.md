@@ -12,6 +12,7 @@ Computer Runtime runs as your operating-system user and connects outbound to Nex
 3. Run the following commands as your normal user:
 
 ```sh
+python -m pip install "nexilume[computer,browser]==0.47.0"
 nexus-computer setup "<pairing-url-from-nexus-cloud>"
 nexus-computer status
 ```

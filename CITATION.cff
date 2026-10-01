@@ -6,7 +6,7 @@ authors:
   - name: "Nexus contributors"
 repository-code: "https://github.com/Nexilume-AI/nexus-docs"
 url: "https://github.com/Nexilume-AI/nexus-docs"
-license: Apache-2.0
+license-url: "https://github.com/Nexilume-AI/nexus-docs/blob/main/LICENSE"
 keywords:
   - "Guides"
   - "English / 中文"

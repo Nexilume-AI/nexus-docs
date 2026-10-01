@@ -34,4 +34,4 @@ agent.run()
 
 See `examples/a2a_agent.py`, `a2a_call.py`, and `a2a_stream.py` for complete server and client examples.
 
-Complete [installation](../quickstart/installation.md) first. Source commands run at the standalone SDK repository root; download wheels from GitHub Releases rather than installing this project from PyPI.
+Complete [installation](../quickstart/installation.md) first, using nexilume and the relevant extras from PyPI. Source examples run at the standalone SDK repository root.

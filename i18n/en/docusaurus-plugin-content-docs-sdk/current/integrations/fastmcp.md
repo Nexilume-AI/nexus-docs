@@ -34,6 +34,6 @@ bridge.serve_registered(NexusAgentClient("https://router.example:7443"))
 
 Map every public tool explicitly instead of exposing the whole MCP server. See `examples/fastmcp_agent.py` for a complete example.
 
-Complete [installation](../quickstart/installation.md) first. Source commands run at the standalone SDK repository root; download wheels from GitHub Releases rather than installing this project from PyPI.
+Complete [installation](../quickstart/installation.md) first, using nexilume and the relevant extras from PyPI. Source examples run at the standalone SDK repository root.
 
 For deployment without a Router, see [Hosted MCP](../guides/hosted-mcp.md). The bridge on this page connects existing FastMCP tools to OpenWrt.

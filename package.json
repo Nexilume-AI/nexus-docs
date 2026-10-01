@@ -47,5 +47,6 @@
   },
   "engines": {
     "node": ">=20.0"
-  }
+  },
+  "license": "LicenseRef-Nexus-Community-1.0"
 }

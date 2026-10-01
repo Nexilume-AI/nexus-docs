@@ -20,7 +20,7 @@ Windows Host Alias 让同一物理网卡承载多个全球 IPv6 `/128`，每个 
 从软件包安装：
 
 ```powershell
-python -m pip install "./nexus_openwrt_agent_sdk-0.46.2-py3-none-any.whl[windows]"
+python -m pip install "nexilume[windows]==0.47.0"
 nexus-agent ipv6 setup
 ```
 
@@ -80,4 +80,4 @@ python examples/ipv6_agents_call_each_other.py
 
 完整调用流程见[两个 IPv6 Agent 互相调用](../tutorials/ipv6-agents-call-each-other.md)。
 
-先完成[安装](../quickstart/installation.md)。源码命令在独立 SDK 仓库根目录执行；wheel 从 GitHub Releases 下载，当前不使用 PyPI 安装本项目。
+先完成[安装](../quickstart/installation.md)，从 PyPI 安装 nexilume 及对应扩展。源码示例命令在独立 SDK 仓库根目录执行。

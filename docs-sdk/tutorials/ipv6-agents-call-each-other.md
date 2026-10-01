@@ -6,7 +6,7 @@ description: 只使用 Python SDK，为两个 Agent 分配不同 IPv6 地址并�
 
 # 两个 IPv6 Agent 互相调用
 
-本教程只使用 `nexus-openwrt-agent-sdk`：在同一台主机上创建 Agent A 和 Agent B，为它们各租用一个全球 IPv6 `/128`，让 A 按 B 的 IPv6 地址调用 B，再让 B 按 A 的地址调用 A。调用路径中没有 OpenWrt、Router 注册、Directory、AFIB 或 Relay。
+本教程只使用 `nexilume`：在同一台主机上创建 Agent A 和 Agent B，为它们各租用一个全球 IPv6 `/128`，让 A 按 B 的 IPv6 地址调用 B，再让 B 按 A 的地址调用 A。调用路径中没有 OpenWrt、Router 注册、Directory、AFIB 或 Relay。
 
 完成后你会看到类似结果：
 

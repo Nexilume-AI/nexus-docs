@@ -12,6 +12,7 @@ Computer Runtime 以当前系统用户运行，通过出站 WSS 连接 Nexus Clo
 先[安装](../quickstart/installation.md) `computer` 扩展；浏览器操作另需 `browser`。在 Nexus Cloud 工作区创建 Computer 配对链接，以普通用户运行：
 
 ```sh
+python -m pip install "nexilume[computer,browser]==0.47.0"
 nexus-computer setup "<pairing-url-from-nexus-cloud>"
 nexus-computer status
 ```
