@@ -19,6 +19,13 @@ for (const parent of ['copy-webpack-plugin', 'css-minimizer-webpack-plugin']) {
     assert.equal(decoded.expression.source, 'abc');
     assert.equal(decoded.operation(3), 4);
   });
+  test(`${parent} does not emit script-closing text from function bodies`, () => {
+    const serialize = from(parent)('serialize-javascript');
+    const serialized = serialize({value: function () { return '</script>'; }});
+    assert.ok(!serialized.toLowerCase().includes('</script>'));
+    const decoded = runInNewContext(`(${serialized})`, {}, {timeout: 1000});
+    assert.equal(decoded.value(), '</script>');
+  });
 }
 
 test('Express query parser preserves nesting without prototype pollution', () => {
