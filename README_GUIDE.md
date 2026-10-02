@@ -42,8 +42,8 @@ See [CONTRIBUTING.md](CONTRIBUTING.md), [SECURITY.md](SECURITY.md), and [THIRD_P
 
 ## License
 
-[Nexus Community License 1.0](LICENSE), carried forward from the source documentation tree. Third-party components retain their own licenses. Publishing documentation does not license separately distributed proprietary application code or grant rights to third-party trademarks.
+[Apache License 2.0 (modified)](LICENSE), carried forward from the source documentation tree. Third-party components retain their own licenses. Publishing documentation does not license separately distributed proprietary application code or grant rights to third-party trademarks.
 
 ### Licensing conditions
 
-Source-available, not unmodified Apache-2.0 or OSI-approved open source. Multi-tenant service operation and removal of existing Nexus UI branding require prior written authorization. Earlier Apache-2.0 grants and third-party licenses remain unchanged. Contributions require explicit agreement permitting commercial use and future relicensing. See [LICENSING.md](LICENSING.md). Authorization contact: **cary.nexilume@outlook.com**.
+Nexus is licensed under a modified version of the Apache License 2.0, with the following additional conditions. Multi-tenant service operation and removal of existing Nexus UI branding require prior written authorization. Earlier Apache-2.0 grants and third-party licenses remain unchanged. Contributions require explicit agreement permitting commercial use and future relicensing. See [LICENSING.md](LICENSING.md). Authorization contact: **cary.nexilume@outlook.com**.
