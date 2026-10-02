@@ -8,7 +8,7 @@
     "build": "node scripts/build-public.mjs",
     "serve": "docusaurus serve",
     "check:docs": "python scripts/check_i18n_parity.py && python scripts/check_public_source.py",
-    "check:security": "node --test scripts/dependency-security.test.mjs scripts/image-dimensions.test.mjs",
+    "check:security": "node --test scripts/dependency-security.test.mjs scripts/image-dimensions.test.mjs scripts/public-links.test.mjs",
     "check:api": "python scripts/check_sdk_api_griffe.py && python scripts/generate_sdk_details.py --check",
     "check:sdk-design": "python scripts/check_sdk_design.py",
     "generate:sdk-reference": "python scripts/generate_sdk_reference.py && python scripts/generate_sdk_details.py",
