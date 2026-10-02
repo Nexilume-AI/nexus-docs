@@ -1,10 +1,12 @@
 {
   "version.label": {"message": "Current (0.46.x)", "description": "The label for version current"},
   "sidebar.sdkSidebar.category.快速入门": {"message": "Quickstart"},
+  "sidebar.sdkSidebar.category.Agent 设计与开发": {"message": "Agent design and development"},
   "sidebar.sdkSidebar.category.原理与设计": {"message": "Principles & design"},
   "sidebar.sdkSidebar.category.系统教程": {"message": "Guided tutorials"},
   "sidebar.sdkSidebar.category.操作指南": {"message": "How-to guides"},
   "sidebar.sdkSidebar.category.集成": {"message": "Integrations"},
   "sidebar.sdkSidebar.category.参考": {"message": "Reference"},
+  "sidebar.sdkSidebar.category.完整接口参考": {"message": "Detailed API reference"},
   "sidebar.sdkSidebar.category.故障排查": {"message": "Troubleshooting"}
 }

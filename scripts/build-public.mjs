@@ -17,4 +17,9 @@ for (const locale of ['', 'en/']) {
     if (!body.includes(`/${product}`)) throw new Error(`Missing ${locale}${product}`);
   }
 }
+const languageCheck = spawnSync(process.env.PYTHON || 'python', ['-B', 'scripts/check_english_build.py'], {
+  stdio: 'inherit',
+});
+if (languageCheck.error) throw languageCheck.error;
+if (languageCheck.status !== 0) process.exit(languageCheck.status || 1);
 console.log('All four products and both locales built successfully.');

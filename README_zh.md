@@ -41,7 +41,7 @@ Nexus Server、OpenWrt、Python SDK 与 TokenBank 的中英文用户指南、教
 
 </details>
 
-[采集说明与可复现源码](docs/media/capture-notes.md)。这些是真实截图，不是设计稿；这里展示的企业版菜单
+[采集说明与可复现源码](docs/media/capture-notes_zh.md)。这些是真实截图，不是设计稿；这里展示的企业版菜单
 与商业功能，不会因为出现在文档中就成为社区版功能。
 
 ## 从目标开始
@@ -81,7 +81,7 @@ python -m pip install --upgrade nexilume
 - 根据实际安装的组件版本选择文档，不混用历史快照。
 - [静态构建与托管](README_GUIDE.md#hosting)：部署者配置自己的 HTTPS 域名与路径。
 - [SDK API 文档维护](README_GUIDE.md#sdk-documentation-maintenance)：只有再生成 API 参考才需要额外源码。
-- [贡献指南](CONTRIBUTING.md)：修复示例、链接或翻译时保留版本上下文。
+- [贡献指南](CONTRIBUTING_zh.md)：修复示例、链接或翻译时保留版本上下文。
 
 此首页使用仓库内入口，不假定一个尚未确认可访问的公开文档域名。
 
@@ -99,7 +99,7 @@ python -m pip install --upgrade nexilume
 
 ## 参与贡献
 
-请先阅读 [CONTRIBUTING.md](CONTRIBUTING.md)。欢迎修复问题、改进教程和补充翻译。
+请先阅读 [CONTRIBUTING_zh.md](CONTRIBUTING_zh.md)。欢迎修复问题、改进教程和补充翻译。
 
 问题反馈请附组件版本与脱敏复现步骤，不要上传凭据、个人文件或真实设备配置。安全问题遵循 [SECURITY.md](SECURITY.md)。 CI 通过不等于所有平台均已完成生产验收。
 
@@ -128,4 +128,4 @@ Nexus 自有代码采用 [Apache License 2.0 (modified)](LICENSE)。第三方组
 
 ### 许可条件
 
-Nexus 采用 Apache License 2.0 的修改版，并附加以下条件。多租户服务运营及移除现有 Nexus 界面品牌标识须事先取得书面授权。此前的 Apache-2.0 授权和第三方许可证保持不变。贡献者须明确同意允许商业使用及未来重新许可的贡献协议。许可说明：[LICENSING.md](LICENSING.md)。授权联系：**cary.nexilume@outlook.com**。
+Nexus 采用 Apache License 2.0 的修改版，并附加以下条件。多租户服务运营及移除现有 Nexus 界面品牌标识须事先取得书面授权。此前的 Apache-2.0 授权和第三方许可证保持不变。贡献者须明确同意允许商业使用及未来重新许可的贡献协议。许可说明：[LICENSING_zh.md](LICENSING_zh.md)。授权联系：**cary.nexilume@outlook.com**。
