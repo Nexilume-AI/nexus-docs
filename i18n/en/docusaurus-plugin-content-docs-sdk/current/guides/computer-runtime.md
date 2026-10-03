@@ -63,10 +63,9 @@ nexus-computer restart
 
 Installing the Playwright Python package alone does not install a browser. An environment variable set only in an interactive shell does not update an already running systemd service.
 
-## Attached Computer binary files (next release)
+## Attached Computer binary files
 
-The development SDK and matching Cloud provide binary Workspace APIs. These
-are not included in the currently published wheel. Upgrade Cloud and Computer
+SDK 0.48.0 provides binary Workspace APIs on PyPI. Upgrade Cloud and Computer
 Runtime together; Runtime must advertise `workspace.binary.v1`. Unsupported
 versions fail explicitly and never fall back to a text write.
 

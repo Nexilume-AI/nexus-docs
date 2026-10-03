@@ -59,9 +59,9 @@ nexus-computer restart
 
 仅安装 Playwright Python 包不会安装浏览器；在交互 shell 中设置环境变量也不会更新已启动的 systemd 服务。无桌面的 Linux 使用 headless 模式。
 
-## Attached Computer 二进制文件（待发布）
+## Attached Computer 二进制文件
 
-开发版 SDK 和配套 Cloud 已增加二进制 Workspace API；当前 PyPI 版本尚未包含。
+SDK 0.48.0 已在 PyPI 提供二进制 Workspace API；还需配套 Cloud 协议支持。
 使用前需更新 Cloud 与 Computer Runtime，Runtime 必须声明 `workspace.binary.v1`。
 旧版不支持时明确返回错误，SDK 不会降级为文本写入。
 
