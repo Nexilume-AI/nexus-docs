@@ -62,3 +62,33 @@ nexus-computer restart
 ```
 
 Installing the Playwright Python package alone does not install a browser. An environment variable set only in an interactive shell does not update an already running systemd service.
+
+## Attached Computer binary files (next release)
+
+The development SDK and matching Cloud provide binary Workspace APIs. These
+are not included in the currently published wheel. Upgrade Cloud and Computer
+Runtime together; Runtime must advertise `workspace.binary.v1`. Unsupported
+versions fail explicitly and never fall back to a text write.
+
+```python
+data = ctx.workspace.read_bytes("images/input.png")
+ctx.workspace.write_bytes("images/result.png", data)
+ctx.workspace.upload("/agent-local/result.zip", "exports/result.zip")
+ctx.workspace.download("exports/result.zip", "/agent-local/download.zip")
+
+data = await ctx.aio.workspace.read_bytes("images/input.png")
+await ctx.aio.workspace.write_bytes("images/result.png", data)
+```
+
+These methods use the attached caller-owned Computer, not the Agent host, and
+require `files.read` / `files.write`. In-memory APIs are limited to 16 MiB;
+streaming APIs to 1 GiB with 256 KiB HTTPS chunks. WSS carries control metadata
+only. SHA-256 verification precedes atomic file replacement; incomplete transfers
+preserve existing files. Empty files, arbitrary binary content and Unicode names work.
+Handles expire after 15 idle minutes. Start a new transfer after a Runtime
+restart; ambiguous write failures are not automatically replayed. If a commit
+response is lost, check the target digest before retrying.
+
+Relative paths use the Run folder at transfer start. Switching folders does
+not relocate an active transfer. `ctx.files` is the separate Cloud Run input/
+output API; Workspace files are not automatically archived as Run outputs.
