@@ -4,9 +4,10 @@ title: "Mobile live screen and control"
 
 # Mobile live screen and control
 
-Current `main` source adds live video and expanded actions. These additions are
-not a claim that the published PyPI `0.48.0` or Android `0.1.1-beta.2` artifacts
-contain all of them. Use compatible Cloud, Web, Android and SDK source versions.
+Expanded SDK actions require PyPI `nexilume>=0.49.0`; Android live screen and
+control require `0.1.2-beta.1` or newer. A compatible Cloud and Web are still
+required. Earlier PyPI `0.48.0` and Android `0.1.1-beta.2` releases do not include
+these additions.
 
 ## SDK actions
 

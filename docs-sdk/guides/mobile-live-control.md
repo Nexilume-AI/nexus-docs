@@ -4,9 +4,9 @@ title: "手机实时画面与控制"
 
 # 手机实时画面与控制
 
-当前 `main` 源码新增实时画面和扩展动作；这些增量不代表已发布的 PyPI
-`0.48.0` 或 Android `0.1.1-beta.2` 已包含全部功能。部署时需要兼容的
-Cloud、Web、Android 和 SDK 源码版本。
+SDK 扩展动作使用 PyPI `nexilume>=0.49.0`；Android 实时画面和控制使用
+`0.1.2-beta.1` 或更新版本。部署时仍需兼容的 Cloud 和 Web。
+旧 PyPI `0.48.0` 和 Android `0.1.1-beta.2` 不包含这些增量。
 
 ## SDK 动作
 
