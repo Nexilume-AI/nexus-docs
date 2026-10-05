@@ -6,6 +6,7 @@
 
 [![Python SDK on PyPI](https://img.shields.io/pypi/v/nexilume.svg)](https://pypi.org/project/nexilume/)
 [![License: Apache-2.0 modified](https://img.shields.io/badge/License-Apache--2.0_modified-17251d.svg)](LICENSE)
+[![商业版 Demo](https://img.shields.io/badge/Demo-Commercial_edition-b8ef73.svg)](https://cloud.nexilume.com/)
 [![文档](https://img.shields.io/badge/Read-the_docs-b8ef73.svg)](https://nexilume-ai.github.io/nexus-docs/)
 [![引用技术报告](https://img.shields.io/badge/Cite-technical_report-e8e9e4.svg)](#引用)
 [![Repository checks](https://github.com/Nexilume-AI/nexus-docs/actions/workflows/ci.yml/badge.svg)](https://github.com/Nexilume-AI/nexus-docs/actions/workflows/ci.yml)
@@ -17,6 +18,8 @@
 [功能](#从目标开始) · [快速开始](#快速开始) · [项目生态](#项目生态) · [参与贡献](#参与贡献) · [引用](#引用)
 
 </div>
+
+> **[体验 Nexus Cloud 商业版 Demo](https://cloud.nexilume.com/)**：这是托管的商业版演示；演示中的部分功能不包含在自托管社区版中。
 
 Nexus Server、OpenWrt、Python SDK 与 TokenBank 的中英文用户指南、教程和参考。
 
