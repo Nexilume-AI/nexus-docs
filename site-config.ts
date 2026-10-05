@@ -92,7 +92,7 @@ const config: Config = {
           label: 'GitHub',
           position: 'right',
           items: [
-            'nexus-cloud-community',
+            'nexus-cloud',
             'nexus-mobile',
             'nexus-docs',
             'nexus-agent-sdk-python',

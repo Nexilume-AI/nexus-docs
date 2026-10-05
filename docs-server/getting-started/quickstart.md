@@ -4,10 +4,6 @@ title: 在本地启动 Nexus 社区版
 description: 使用社区版源码和 Docker Compose 启动本地服务，或按 Linux、Windows 原生安装流程运行。
 ---
 
-:::note 仓库访问范围
-本页部分源码或下载链接指向当前仍为私有的产品仓库。用户文档公开不代表产品仓库已经公开；需要其中安装文件的步骤须先获得维护者授权，不能将这些链接视为已开放的公共下载。
-:::
-
 # 在本地启动 Nexus 社区版
 
 本章面向自行安装的 **Nexus Cloud Community**。企业版用户直接访问管理员提供的 Console 地址，无需在自己的电脑上启动 Server；企业版工作上下文见[创建第一个 Workspace 和 Project](first-workspace.md)。
@@ -16,7 +12,7 @@ description: 使用社区版源码和 Docker Compose 启动本地服务，或按
 
 ## 1. 准备社区版源码
 
-使用独立的 `nexus-cloud-community` 仓库或维护者提供的干净源码包，进入含 `deploy/community/compose.yaml` 的根目录。仓库当前为私有，需要已获授权的账号；尚无访问权限时请向维护者获取源码包。不要用混合企业版开发仓库作为 Docker 构建目录。
+使用公开的 [nexus-cloud 仓库](https://github.com/Nexilume-AI/nexus-cloud)或维护者提供的干净源码包，进入含 `deploy/community/compose.yaml` 的根目录。不要用混合企业版开发仓库作为 Docker 构建目录。
 
 安装 Docker Engine 或 Docker Desktop（Linux containers）及 Compose v2；建议 x86_64、至少 4 GiB 可用内存。Docker 路径不要求宿主机先安装 Python、Node.js、PostgreSQL 或 Redis。
 
@@ -51,7 +47,7 @@ docker compose -f deploy/community/compose.yaml up -d --wait
 
 ## Linux 原生开发
 
-如需直接运行源码，请按社区版随附的 [Linux 完整安装指南](https://github.com/Nexilume-AI/nexus-cloud-community/blob/main/nexus_server/nexus_personal/LINUX.md)依次完成：
+如需直接运行源码，请按社区版随附的 [Linux 完整安装指南](https://github.com/Nexilume-AI/nexus-cloud/blob/main/nexus_server/nexus_personal/LINUX.md)依次完成：
 
 1. 准备 Python 3.14、Node.js 24 和新 venv；Ubuntu 24.04 默认 Python 3.12 不符合该流程。WSL 使用 Linux 文件系统和 Linux 工具链。
 2. 安装 `linux-py314` 哈希锁定依赖，构建 Server wheel；在 `nexus_web` 执行 `npm ci --ignore-scripts` 与 `npm run build:community`。
@@ -70,7 +66,7 @@ bash ./start-nexus-community.sh stop --installation "$NEXUS_INSTALLATION"
 
 ## Windows 原生安装
 
-按 [Host 安装指南](https://github.com/Nexilume-AI/nexus-cloud-community/blob/main/nexus_server/nexus_personal/HOST.md)使用 `win-py314` 依赖锁、构建社区版 Web，并准备和初始化独立安装目录。若使用指南中的本地回环测试配置，可运行：
+按 [Host 安装指南](https://github.com/Nexilume-AI/nexus-cloud/blob/main/nexus_server/nexus_personal/HOST.md)使用 `win-py314` 依赖锁、构建社区版 Web，并准备和初始化独立安装目录。若使用指南中的本地回环测试配置，可运行：
 
 ```powershell
 .\start-nexus-community.ps1 -InstallationDirectory C:\Nexus\Community -LocalHttp
@@ -90,11 +86,11 @@ bash ./start-nexus-community.sh stop --installation "$NEXUS_INSTALLATION"
 - **端口冲突**：首次初始化前同时配置 `NEXUS_PORT` 和匹配的 `NEXUS_ORIGIN`；已有安装不要直接改 origin。
 - **数据库或迁移错误**：检查服务日志和独立数据库配置，按安装指南恢复，不要删除迁移状态。
 - **Agent 无法运行**：容器执行控制器、Python builder 与外部 Provider 需要另外配置；Compose 不会自动授予宿主机 Docker socket。
-- **其他设备无法连接**：默认 HTTP 仅监听本机；远程 Computer 等需要预先配置 HTTPS/WSS，参见 [Docker 部署指南](https://github.com/Nexilume-AI/nexus-cloud-community/blob/main/deploy/community/README.md)。
+- **其他设备无法连接**：默认 HTTP 仅监听本机；远程 Computer 等需要预先配置 HTTPS/WSS，参见 [Docker 部署指南](https://github.com/Nexilume-AI/nexus-cloud/blob/main/deploy/community/README.md)。
 
 ## 下一步
 
-按社区版 [工作流指南](https://github.com/Nexilume-AI/nexus-cloud-community/blob/main/nexus_server/nexus_personal/WORKFLOWS.md)配置第一个 Agent、模型和设备。OpenWrt、Mobile、Python SDK 与 Computer Runtime 单独发行，不包含在此 Cloud 源码包中。企业版用户继续阅读[第一个 Agent 工作流](first-agent.md)。
+按社区版 [工作流指南](https://github.com/Nexilume-AI/nexus-cloud/blob/main/nexus_server/nexus_personal/WORKFLOWS.md)配置第一个 Agent、模型和设备。OpenWrt、Mobile、Python SDK 与 Computer Runtime 单独发行，不包含在此 Cloud 源码包中。企业版用户继续阅读[第一个 Agent 工作流](first-agent.md)。
 
 ## 社区版 Relay 自动启动
 
