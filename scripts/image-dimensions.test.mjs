@@ -60,24 +60,21 @@ function reproduce(file) {
 }
 
 for (const [name, data] of Object.entries({icns, heif, jxl})) {
-  test(`${name}: actual upstream parser cannot complete the malformed fixture`, async t => {
+  test(`${name}: patched upstream parser rejects the malformed fixture promptly`, async t => {
     const file = fixture(t, data); // Deliberately misleading extension.
     const result = await reproduce(file);
     assert.equal(result.startupFailed, false, 'Startup delays are not parser vulnerability evidence');
     assert.equal(result.ready, true);
-    assert.ok(result.expired || result.signal || result.status === 134,
-      `Expected bounded reproduction of hang/OOM, got ${result.status}`);
+    assert.equal(result.expired, false);
+    assert.equal(result.signal, null);
+    assert.equal(result.status, 2, 'Malformed image must be rejected without a hang or OOM');
   });
 
   test(`${name}: isolation bounds the parser, cleans workers and fails the build`, async t => {
     const reader = guard.createBoundedReader(parser, {timeout: 500, concurrency: 1});
     t.after(() => reader.close());
     const file = fixture(t, data);
-    let ticks = 0;
-    const interval = setInterval(() => ticks++, 10);
-    t.after(() => clearInterval(interval));
-    await assert.rejects(reader(file), /IMAGE_DIMENSIONS_(TIMEOUT|WORKER_FAILED)/);
-    assert.ok(ticks > 2, 'Build event loop must remain responsive');
+    await assert.rejects(reader(file), /IMAGE_DIMENSIONS_INVALID/);
     assert.deepEqual(reader.stats(), {active: 0, queued: 0, workers: 0});
     assert.throws(() => reader.assertHealthy(), /Documentation image inspection failed/);
   });
@@ -107,9 +104,22 @@ test('bounded queue rejects overload and survives a malformed file', async t => 
   await assert.rejects(reader(good), /IMAGE_DIMENSIONS_QUEUE_FULL/);
   assert.equal(reader.stats().active, 1);
   assert.equal(reader.stats().queued, 1);
-  assert.match((await bad).code, /TIMEOUT|WORKER_FAILED/);
+  assert.equal((await bad).code, 'IMAGE_DIMENSIONS_INVALID');
   assert.equal((await pending).width, 7);
   assert.deepEqual(reader.stats(), {active: 0, queued: 0, workers: 0});
+});
+
+test('worker isolation still bounds an unresponsive parser and cleans resources', async t => {
+  const parserFixture = fixture(t, 'exports.imageSizeFromFile = async () => { while (true) {} };', 'parser.cjs');
+  const reader = guard.createBoundedReader(parserFixture, {timeout: 500, concurrency: 1});
+  t.after(() => reader.close());
+  let ticks = 0;
+  const timer = setInterval(() => ticks++, 10);
+  t.after(() => clearInterval(timer));
+  await assert.rejects(reader('unused'), /IMAGE_DIMENSIONS_TIMEOUT/);
+  assert.ok(ticks > 2, 'Build event loop must remain responsive');
+  assert.deepEqual(reader.stats(), {active: 0, queued: 0, workers: 0});
+  assert.throws(() => reader.assertHealthy(), /Documentation image inspection failed/);
 });
 
 test('MDX uses the installed reader even if its transformer was imported first', async t => {

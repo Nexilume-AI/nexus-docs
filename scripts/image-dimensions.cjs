@@ -1,8 +1,8 @@
 'use strict';
 
-// image-size 2.0.2 has unpatched parser loops (GHSA-w3rx-r6r6-pgpr and
-// GHSA-5p2g-fcmc-qvqq). Keep its format support, but never parse on the build
-// event loop. This is containment, not a patched or renamed dependency.
+// Retain bounded worker isolation after updating image-size to 2.0.4, which
+// rejects the former ICNS/HEIF/JXL loop fixtures. Resource limits also protect
+// the build event loop from future parser defects and oversized inputs.
 const {Worker, isMainThread, parentPort, workerData} = require('node:worker_threads');
 const {createRequire} = require('node:module');
 

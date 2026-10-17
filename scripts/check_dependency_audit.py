@@ -6,10 +6,7 @@ import subprocess
 
 ROOT = Path(__file__).resolve().parent.parent
 REVIEWED = {
-    "https://github.com/advisories/GHSA-w3rx-r6r6-pgpr": ("image-size", "2.0.2"),
-    "https://github.com/advisories/GHSA-5p2g-fcmc-qvqq": ("image-size", "2.0.2"),
     "https://github.com/advisories/GHSA-vfj7-8cjw-p6xm": ("braces", "3.0.3"),
-    "https://github.com/advisories/GHSA-ch52-4w7c-c8xp": ("http-cache-semantics", "4.2.0"),
 }
 
 
@@ -50,7 +47,7 @@ def main():
     if guard_tests.returncode:
         raise SystemExit("Dependency containment verification failed; publication blocked.")
     if data["vulnerabilities"]:
-        print("KNOWN UPSTREAM RISKS REMAIN: image-size, braces and http-cache-semantics. "
+        print("KNOWN UPSTREAM RISK REMAINS: braces. "
               "Docs build containment verified; see SECURITY.md. Not an upstream patch.")
 
 
