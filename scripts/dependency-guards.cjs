@@ -6,7 +6,7 @@ const {readFileSync} = require('node:fs');
 const {resolve} = require('node:path');
 const root = resolve(__dirname, '..');
 const lock = JSON.parse(readFileSync(resolve(root, 'package-lock.json'), 'utf8'));
-const expected = {'braces': '3.0.3', 'http-cache-semantics': '4.2.0'};
+const expected = {'braces': '3.0.3', 'http-cache-semantics': '4.3.0'};
 const found = new Set();
 const fail = () => {
   throw Object.assign(new Error('Documentation glob pattern is too complex'), {
