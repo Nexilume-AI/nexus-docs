@@ -7,6 +7,8 @@ title: Configure authentication and TLS
 
 The SDK separates client credential acquisition from server-side caller verification. Production deployments should verify the router, the agent server, and caller authorization.
 
+For Agents that need caller-approved model API access, see [MCP upstream model API authorization](./model-authorization.md). Model authorization is separate from connection authentication and supports keyless Nexus Router selection and in-client confirmation.
+
 ## Client tokens
 
 The simplest option is `NEXUS_AGENT_TOKEN`. `EnvironmentTokenProvider` reads it, while `AutoTokenProvider` can choose an available method from the environment and router metadata. Use `StaticTokenProvider` for an explicitly supplied token and `OIDCClientCredentialsProvider` for OIDC client credentials.

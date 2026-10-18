@@ -7,6 +7,8 @@ title: 配置认证与 TLS
 
 SDK 把客户端凭据获取与服务端调用验证分开处理。生产环境应同时验证路由器身份、Agent 服务端身份和调用方权限。
 
+如果 Agent 需要使用调用者授权的模型 API，参见 [MCP 上游模型 API 授权](./model-authorization.md)。其中的模型授权独立于本页的连接认证，支持 Nexus Router 免 Key 选择和客户端内确认。
+
 ## 客户端令牌
 
 最简单的方式是设置 `NEXUS_AGENT_TOKEN`。`EnvironmentTokenProvider` 会读取该变量；`AutoTokenProvider` 可以结合路由器元数据选择可用方式。固定令牌可使用 `StaticTokenProvider`，OIDC 客户端凭据使用 `OIDCClientCredentialsProvider`。
