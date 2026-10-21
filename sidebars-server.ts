@@ -29,7 +29,6 @@ const sidebars: SidebarsConfig = {
         'agents/index',
         'agents/private-runs',
         'data-assets/index',
-        'data-assets/agent-training',
         'providers/index',
         'model-pool/index',
         'routers/index',
