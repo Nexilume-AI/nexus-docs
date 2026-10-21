@@ -28,10 +28,10 @@ Connecting to MCP does not authorize model charges. This flow does not automatic
 | --- | --- |
 | Nexus Cloud with MCP form elicitation support | Select a Router / model and lifetime, then confirm inside the client. No key entry. |
 | Third-party provider with an eligible saved authorization | Form-capable clients can confirm the already-authorized endpoint / model. |
-| New third-party key, changed third-party scope, or Configure securely | Enter and approve configuration on the authenticated Cloud page. |
+| New third-party key, changed third-party scope, or Configure securely | On the hosted service, enter and confirm through a valid short-lived link without signing in. Personal deployments keep their sign-in flow. |
 | Client without form support | Use the secure page. URL elicitation can prompt navigation; otherwise the tool returns `authorization_url`. |
 
-In-conversation confirmation means a client authorization form, not pasting a key into chat. Opening a URL or accepting a navigation prompt does not grant access: the invoking owner must still complete server-validated approval. Form support and presentation vary between clients.
+In-conversation confirmation means a client authorization form, not pasting a key into chat. Opening a URL or accepting a navigation prompt does not grant access: the user supplying the credential or Router must still complete server-validated approval. Form support and presentation vary between clients.
 
 ## Nexus Cloud: choose a Router without a key or endpoint
 
@@ -105,5 +105,27 @@ Cloud operators must apply Agent migrations, configure shared `NEXUS_SECRET_ENCR
 - **MCP connects but optimization cannot start:** check execution readiness, grant status and the actual approved model.
 - **The tool finishes waiting with pending:** let the user approve, then check the same ID instead of repeatedly creating requests.
 - **Changing configuration unexpectedly reuses a grant:** make a fresh tool call with `force_new: true`.
-- **The page requires sign-in or denies access:** sign in as the MCP credential owner and verify personal caller credentials and organization permissions.
+- **The page requires sign-in or denies access:** on the hosted service, sign in to your own account for Nexus Router selection and check Router permissions. Login-free third-party key links must be unexpired and unused. Personal deployments use their credential-owner sign-in flow.
 - **You need internal progress:** model authorization is separate from job monitoring. New Atrex jobs support [background events](./background-events.md) and a live page; `get_atrex_job` remains available for snapshots.
+
+
+## Model provider selection on the web page
+
+**Model provider** is the single connection selector. There is no separate
+“Use my Nexus Router” button. The compact page adapts to mobile screens and does
+not use expandable sections.
+
+On hosted **cloud.nexilume.com**:
+
+- Choose **Nexus Cloud** to use the actual signed-in browser user's permitted Routers and models, without entering a key or endpoint.
+- If signed out, the page offers sign-in. Other providers remain selectable.
+- For other providers, a valid short-lived authorization link allows users to enter their own endpoint, model, and key without signing in to Nexus.
+- Links expire within five minutes of creation and are consumed by approval or cancellation. Opening a link is not consent.
+- The link does not grant access to the publisher's account. Router choices belong to the signed-in user; usage is billed to the selected Router's Organization or project.
+- Switching providers clears the entered key and consent. Submission rechecks identity, permissions, and authorization scope.
+
+This browser account selection is separate from in-client MCP form elicitation,
+which continues to use the authenticated MCP caller context. The open-source
+Personal host retains its credential-entry flow and does not provide hosted
+login-free links or Router delegation key issuance. Selecting Nexus Cloud on a
+Personal host still requires the user's own key.

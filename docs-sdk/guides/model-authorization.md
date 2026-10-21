@@ -28,10 +28,10 @@ title: MCP 上游模型 API 授权
 | --- | --- |
 | Nexus Cloud，客户端支持 MCP form elicitation | 对话内选择 Router / 模型、有效期并确认，无需输入 Key。 |
 | 第三方 Provider，有符合范围的已保存授权 | 支持 form elicitation 时，可在客户端确认使用已授权的 Endpoint / 模型。 |
-| 新增第三方 Key、变更第三方授权范围或选择 Configure securely | 在已登录的 Cloud 授权页填写并确认。 |
+| 新增第三方 Key、变更第三方授权范围或选择 Configure securely | 托管版可凭有效的短时授权链接免登录填写并确认；Personal 部署仍使用其登录流程。 |
 | 客户端不支持表单 | 使用安全网页；支持 URL elicitation 时可提示打开，否则工具返回 `authorization_url`。 |
 
-“对话内确认”指客户端提供的授权表单，不是让用户把 Key 发到聊天里。打开网页或接受 URL 提示本身不构成授权；仍须由调用者本人完成服务端确认。不同客户端的表单支持和呈现方式可能不同。
+“对话内确认”指客户端提供的授权表单，不是让用户把 Key 发到聊天里。打开网页或接受 URL 提示本身不构成授权；仍须由提供凭据或 Router 的用户完成服务端校验和明确确认。不同客户端的表单支持和呈现方式可能不同。
 
 ## Nexus Cloud：选择 Router，无需 Key 或 Endpoint
 
@@ -105,5 +105,24 @@ Cloud 运维需要应用 Agent 数据库迁移，配置共享的 `NEXUS_SECRET_E
 - **MCP 已连接但无法开始优化**：先检查执行环境就绪，再检查授权状态及实际批准的模型。
 - **工具等待结束仍为 pending**：等待用户确认，再查同一授权 ID，不要反复创建请求。
 - **需要更换配置但直接复用了旧授权**：使用新的工具调用并设置 `force_new: true`。
-- **页面提示登录或无权限**：使用发起 MCP 调用的凭据所有者登录，确认个人调用凭据与组织权限。
+- **页面提示登录或无权限**：托管版选择 Nexus Cloud 时登录自己的账户并检查 Router 权限；第三方 Key 的免登录链接需未过期且未使用。Personal 部署按其凭据所有者登录流程处理。
 - **想看到内部进度**：模型授权与任务进度是独立功能。新 Atrex 任务支持[后台事件推送](./background-events.md)和实时页面，`get_atrex_job` 仍可查询快照。
+
+
+## 网页中的 Model provider 选择
+
+授权页面通过 **Model provider** 统一选择连接方式，不再提供单独的
+“Use my Nexus Router”按钮。页面采用简洁卡片和手机适配布局，没有折叠区域。
+
+在托管版 **cloud.nexilume.com**：
+
+- 选择 **Nexus Cloud**：使用浏览器中真实登录的用户身份，显示该用户有权使用的 Router 和模型；无需填写 Key 或 Endpoint。
+- 未登录时显示登录入口，也可直接切换到其他 Provider。
+- 选择其他 Provider：凭有效的短时授权链接填写自己的 Endpoint、模型和 Key，无需登录 Nexus。
+- 链接从创建起最多有效 5 分钟，授权或取消后不可再次使用；打开链接不会自动确认。
+- 链接不授予发布者账户的查看权限。Router 列表来自当前登录用户，费用归属所选 Router 的 Organization / project。
+- 切换 Provider 会清空输入的 Key 和确认勾选；提交时再次校验身份、权限和授权范围。
+
+此网页的账户选择与对话内 MCP form elicitation 不同：后者仍使用经认证的 MCP 调用上下文。
+Personal 开源部署保留其凭据输入流程，不提供托管版的免登录链接或 Router 临时凭据签发；
+选择 Nexus Cloud 时也需提供自己的 Key。
