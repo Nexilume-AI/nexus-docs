@@ -126,3 +126,64 @@ Cloud 运维需要应用 Agent 数据库迁移，配置共享的 `NEXUS_SECRET_E
 此网页的账户选择与对话内 MCP form elicitation 不同：后者仍使用经认证的 MCP 调用上下文。
 Personal 开源部署保留其凭据输入流程，不提供托管版的免登录链接或 Router 临时凭据签发；
 选择 Nexus Cloud 时也需提供自己的 Key。
+
+
+## 可选：在 MCP 客户端配置中显式预授权
+
+托管版和 Personal 开源部署均支持以下 Nexus 请求头扩展。它不是 MCP 工具参数。
+不填写这些请求头时，继续使用原有网页授权方式。MCP 连接必须使用可识别所有者的个人凭据，
+且管理员已为此 Agent 启用模型授权。
+
+```toml
+# Optional upstream model preauthorization for this MCP Agent.
+# Environment variables contain keys; never put them in tool arguments.
+[mcp_servers.my_agent]
+url = "https://cloud.nexilume.com/api/v1/agents/<agent-id>/mcp/"
+bearer_token_env_var = "NEXUS_MCP_API_KEY"
+
+[mcp_servers.my_agent.http_headers]
+X-Nexus-Tenant = "<tenant-id>"
+X-Nexus-Upstream-Preauthorize = "true"
+X-Nexus-Upstream-Provider = "custom_openai"
+X-Nexus-Upstream-Endpoint = "https://api.example.com/v1"
+X-Nexus-Upstream-Model = "<model-id>"
+X-Nexus-Upstream-TTL-Seconds = "3600"
+
+[mcp_servers.my_agent.env_http_headers]
+X-Nexus-Upstream-Key = "NEXUS_UPSTREAM_API_KEY"
+```
+
+Codex 支持 `http_headers` 和从环境变量读取值的 `env_http_headers`
+（[官方配置参考](https://developers.openai.com/codex/config-reference/)）。
+在运行客户端的进程环境中设置 `NEXUS_MCP_API_KEY` 与 `NEXUS_UPSTREAM_API_KEY`：
+前者连接 Nexus MCP，后者访问上游模型，两者用途不同。
+其他 HTTP MCP 客户端也可发送这些请求头；不支持环境变量的客户端可以在私有配置中直接填写
+`X-Nexus-Upstream-Key`，但不要提交或分享包含真实密钥的文件。
+Nexus 不读取 MCP 配置中任意添加的顶层 `endpoint`、`model`、`key` 字段。
+
+| 请求头 | 要求 |
+| --- | --- |
+| `X-Nexus-Upstream-Preauthorize` | 必须是字符串 `true`，明确允许此 Agent 使用模型凭据并产生模型费用。 |
+| `X-Nexus-Upstream-Endpoint` | 必填公共 HTTPS API Base URL，不得包含凭据、查询参数、fragment 或私网 DNS/IP。 |
+| `X-Nexus-Upstream-Model` | 必填精确模型标识。 |
+| `X-Nexus-Upstream-Key` | 必填上游 Key，与 MCP 的 `Authorization` 分开。 |
+| `X-Nexus-Upstream-Provider` | 默认 `custom_openai`；也支持 `custom_anthropic`、`openai`、`anthropic`、`nexus`。预设 Provider 必须使用其固定 Endpoint。 |
+| `X-Nexus-Upstream-TTL-Seconds` | 默认 `3600`，范围 `300`–`86400` 秒。 |
+
+配置不完整、未明确确认、未知请求头或非法地址返回 HTTP 400，不会自动启用授权。
+只填写 `Preauthorize: false` 等价于不配置；关闭时应同时移除其他上游请求头。
+
+服务端在转发或排队前移除这些请求头，在工具调用通过准入检查时创建加密授权，绑定当前
+调用者、Agent、tenant 和 project。初始化与工具发现不会创建授权。
+每次携带完整预授权配置的新调用都会产生具有指定有效期的授权，这代表客户端配置中的持续同意，
+无需逐次网页确认。运行中的任务沿用原授权，轮询不能延长有效期。
+移除配置阻止新调用使用先前配置授权，但不会取消正在运行的任务；要停止已有使用，需撤销授权或取消任务。
+
+`ProviderCredentials.authorize()` 返回 `authorized`、`preauthorized: true` 及非敏感配置。
+客户端配置的 Provider、Endpoint 和 Model 优先于工具默认参数，包括 `force_new`。
+启动工作时必须使用实际返回的配置。更换配置或 Key 后应获取新的授权引用；旧引用无法用于不同配置。
+这类凭据不会出现在网页的已保存凭据列表中；移除上游请求头即可恢复网页授权方式。
+
+密钥不会进入工具参数、MCP 结果、转发给 Agent 的请求头、Run 事件或训练导出。
+只有受信任执行端可通过回调在校验范围与有效期后解析凭据。
+反向代理和额外 HTTP 日志采集也必须排除 `X-Nexus-Upstream-Key`。
