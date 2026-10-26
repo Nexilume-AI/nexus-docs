@@ -230,3 +230,14 @@ and round-robin between callers, with eight waiting requests per caller, 32 tota
 and a ten-second queue deadline. Clients should back off before retrying queue
 errors. These limits apply to one Wave bridge process, not to every Agent
 automatically through a global Cloud scheduler.
+
+
+## Reusable model connections and batch authorization (Hosted Cloud)
+
+Open [Model connections](https://cloud.nexilume.com/api/v1/model-connections/page/), sign in to your own account, save a model destination, select multiple Agents and explicitly confirm. Choose your own available Nexus Router/model without entering a key, or supply your own external provider endpoint/model/key. Saving a connection alone grants no Agent permission; new Marketplace Agents are not automatically included.
+
+An approved Agent can reuse access across tools and new conversations. Set connection-wide and per-Agent request allowances and expiry (up to 30 days), then revoke an individual permission or the whole connection at any time. Both counters apply atomically. A stream counts once; upstream failures/timeouts also count. Editing permission never resets usage. Request allowances are not monetary or token budgets.
+
+The original upstream key stays in Cloud. Trusted execution receives an Agent-scoped proxy capability. Existing SDK authorize/resolve calls work without an API change: consume the returned provider, base_url and model instead of hard-coding the original destination. Explicit endpoint/model requests must match. Runtime capabilities last at most 24 hours; authorize again to obtain a fresh capability under a still-valid permission without another user confirmation.
+
+Revocation blocks new requests and is checked on subsequent stream chunks. Already-dispatched upstream work may still incur charges. Reapproval never revives old tokens. Existing one-time browser grants and explicit MCP preauthorization remain separate; revoke independent older grants at their original pages. Model permissions do not broaden mobile/computer access.

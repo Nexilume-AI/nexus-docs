@@ -207,3 +207,14 @@ Wave MCP 示例实现了这一机制：每调用者最多两个临时工作区�
 每调用者最多八个等待请求，总共 32 个，等待十秒超时后返回明确错误。
 客户端收到排队错误应退避重试。这些限制针对单个 Wave bridge 进程，不是 Cloud
 为所有 Agent 自动施加的统一调度器。
+
+
+## 模型连接复用与批量授权（Hosted Cloud）
+
+打开 [Model connections](https://cloud.nexilume.com/api/v1/model-connections/page/)，登录自己的 Nexus 账号，保存模型连接，再一次选择多个 Agent 并确认授权。Nexus Cloud 可直接选择自己有权限使用的 Router 与模型；第三方连接填写公开 HTTPS Endpoint、模型和自己的 API Key。保存连接本身不会授权任何 Agent。
+
+同一 Agent 的工具和新对话会在权限有效期间自动复用。新上架的 Agent 不会自动获得权限。连接和每个 Agent 都可以设置有效期（最长 30 天）与请求次数额度，并可分别撤销。两层额度同时扣减；流式请求算一次，上游失败或超时也计入，修改权限不重置计数。这里的额度是请求次数，不是金额或 Token 预算，费用仍由模型提供方或 Router 计费。
+
+原始上游 Key 仅保存在 Cloud；Agent 运行时获得绑定该 Agent 的 Cloud 代理凭据。开发者继续调用 `ProviderCredentials.authorize()` 和 `resolve_for_runtime()`，必须使用返回的 `provider`、`base_url` 和 `model`，不要硬编码上游地址。显式指定的 Endpoint / 模型必须与保存的连接匹配。运行时凭据最多有效 24 小时；再次调用 authorize 可在仍有效的长期权限下自动取得新凭据，无需再次向用户确认。
+
+撤销会阻止新的模型请求，正在接收的流在后续分块检查撤销状态；已经发送到上游的工作仍可能产生费用。重新批准不会复活旧凭据。已有一次性网页授权和 MCP 配置预授权继续保留，独立旧授权需要在原入口单独撤销。此授权不扩大手机、电脑等其他资源权限。
